@@ -6,20 +6,23 @@
  * @tokens: result (input into tokens)
  * @token: each token
  * @delim: token delimiter
+ * @i: token counter
+ * 
+ * Return: next counter
  */
-void tokenize_input(char *ui, char **tokens, char *token, char *delim)
+int tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
 {
-		tokens[i] = strdup(token);
-		if (tokens[i] == NULL)
-		{
-			while (tokens[i])
-				free(tokens[--i]);
-			free(tokens);
-			free(ui);
-			error_handling("tokens", 1);
-		}
-		i++;
-		token = strtok(NULL, delim);
+	tokens[i] = strdup(token);
+	if (tokens[i] == NULL)
+	{
+		while (tokens[i])
+			free(tokens[--i]);
+		free(tokens);
+		free(ui);
+		error_handling("tokens", 1);
+	}
+	token = strtok(NULL, delim);
+	return (i + 1);
 }
 
 /**
@@ -65,7 +68,7 @@ char **tokenize(char *user_input)
 	/* Tokenize user input */
 	token = strtok(user_input, delimiter);
 	while (token)
-		tokenize_input(user_input, tokens, token, delimiter);
+		i = tokenize_input(user_input, tokens, token, delimiter, i);
 	/* Null terminate the array of pointer */
 	tokens[i] = NULL;
 	return (tokens);
