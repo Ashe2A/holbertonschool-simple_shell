@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"strings.h": "c",
+		"hsh.h": "c",
+		"handle_command_not_found": "c"
+	}
+}
