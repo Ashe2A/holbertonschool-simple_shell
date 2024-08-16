@@ -10,7 +10,8 @@
  *
  * Return: the token list (result)
  */
-char **tokenize_input(char *ui, char **tokens, char *token, char *delim, int count)
+char **tokenize_input(char *ui, char **tokens, char *token,
+char *delim, int count)
 {
 	int i = 0;
 

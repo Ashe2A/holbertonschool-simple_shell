@@ -4,6 +4,7 @@
 	* main - entry point
 	* @argc: is the number of arguments
 	* @argv: is an array of pointers pointing arrays of string
+	* @env: environment variables
 	*
 	* Return: (0)
 	*/
