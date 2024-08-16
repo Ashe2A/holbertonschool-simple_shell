@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 
 /**
  * handle_command_not_found - prints error message if the command is not found

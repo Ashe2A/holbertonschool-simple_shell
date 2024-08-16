@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 
 /**
  * reset_ressources - frees memory if necessary

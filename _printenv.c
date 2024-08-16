@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 
 /**
  * _printenv - print the environments variables

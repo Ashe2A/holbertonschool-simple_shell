@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 
 /**
  * handle_user_command - parses an executes user's input command

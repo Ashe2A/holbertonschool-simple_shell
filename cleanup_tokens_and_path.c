@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 
 /**
  * cleanup_tokens_and_path - frees allocated memory from tokens and full_path

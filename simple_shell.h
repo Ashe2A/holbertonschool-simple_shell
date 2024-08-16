@@ -1,5 +1,5 @@
-#ifndef HSH_H
-#define HSH_H
+#ifndef SIMPLE_SHELL_H
+#define SIMPLE_SHELL_H
 
 /*****************LIBRARIES****************/
 
@@ -74,4 +74,4 @@ void child_error_handling(char *msg, int exit_code);
 void free_tokens(char **tokens);
 
 
-#endif /* HSH_H */
+#endif /* SIMPLE_SHELL_H */

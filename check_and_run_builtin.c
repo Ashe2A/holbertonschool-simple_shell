@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 
 /**
  * check_and_run_builtin - call built-in function if user_input match
