@@ -82,7 +82,7 @@ char **tokenize(char *user_input)
 	token = strtok(user_input, delimiter);
 	while (token)
 	{
-		tokenize_input(user_input, tokens, token, delimiter);
+		tokenize_input(user_input, tokens, token, delimiter, i);
 		i++;
 	}
 	/* Null terminate the array of pointer */
