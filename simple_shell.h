@@ -63,8 +63,9 @@ dir_t *create_node(dir_t **head, char *name, char *value);
 void free_path_dir(dir_t *head);
 pid_t fork_and_check(char **tokens, char *full_path, pid_t *child_pid);
 
-/* Built-in */
+/* Built-ins */
 void _printenv(char *user_input __attribute__((unused)));
+void _exit(char *user_input __attribute__((unused)));
 
 /* Helper functions */
 void error_handling(char *msg, int exit_code);

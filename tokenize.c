@@ -2,29 +2,29 @@
 
 /**
  * tokenize_input - tokenize an input
- * @user_input: input to tokenize
+ * @ui: input to tokenize
  * @tokens: result (input into tokens)
  * @token: each token
- * @delimiter: token delimiter
- * @token_count: token counter
+ * @delim: token delimiter
+ * @count: token counter
  *
  * Return: the token list (result)
  */
-char **tokenize_input(char *user_input, char **tokens,
-					char *token, char *delimiter, int token_count)
+char **tokenize_input(char *ui, char **tokens, char *token, char *delim, int count)
 {
 	int i = 0;
 
 	/* Allocate memory for tokens + 1 to NULL terminate the array */
-	tokens = malloc(sizeof(char *) * (token_count + 1));
+	tokens = malloc(sizeof(char *) * (count + 1));
 	if (tokens == NULL)
 	{
-		free(user_input);
-		user_input = NULL;
+		free(ui);
+		ui = NULL;
 		error_handling("malloc", EXIT_FAILURE);
 	}
+
 	/* Tokenize user input */
-	token = strtok(user_input, delimiter);
+	token = strtok(ui, delim);
 	while (token)
 	{
 		tokens[i] = strdup(token);
@@ -33,15 +33,17 @@ char **tokenize_input(char *user_input, char **tokens,
 			while (tokens[i])
 				free(tokens[--i]);
 			free(tokens);
-			free(user_input);
+			free(ui);
 			error_handling("tokens", 1);
 			return (NULL);
 		}
-		token = strtok(NULL, delimiter);
+		token = strtok(NULL, delim);
 		i++;
 	}
+
 	/* Null terminate the array of pointer */
 	tokens[i] = NULL;
+
 	return (tokens);
 }
 
@@ -89,12 +91,13 @@ char **tokenize(char *user_input)
 		user_input = NULL;
 		error_handling("strdup", EXIT_FAILURE);
 	}
+
 	/* Count the number of tokens */
 	token_count = count_tokens(token, cp_input, delimiter);
 
-	free(cp_input); /* Free the copy */
+	/* Free the copy */
+	free(cp_input);
 	cp_input = NULL;
-
 
 	tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
 
