@@ -18,19 +18,19 @@ hence inheriting and using the same environment variables, and commands.
 The following examples demonstrate the usage of simple_shell:
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-simple_shell$ /usr/bin/echo echo works on the simple shell
+/root/holbertonschool-simple_shell$ /usr/bin/echo echo works on the simple shell
 echo works on the simple shell
-simple_shell$ 
+/root/holbertonschool-simple_shell$ 
 
 Example 1: The simple shell uses the echo built-in located in the /usr/bin/ directory
 to mimic echo just like in the parent shell, which takes the input
 and turns it into an output. It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-simple_shell$ /usr/bin/ls /
+/root/holbertonschool-simple_shell$ /usr/bin/ls /
 1    boot  etc   lib    lib64   media  opt   root  sbin  sys  usr
 bin  dev   home  lib32  libx32  mnt    proc  run   srv   tmp  var
-simple_shell$ 
+/root/holbertonschool-simple_shell$ 
 
 Example 2: The simple shell uses the ls built-in located in the /usr/bin/ directory
 to mimic ls just like in the parent shell, which outputs the list of files
@@ -39,9 +39,9 @@ including hidden files and directories.
 It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-simple_shell$ /usr/bin/which cat
+/root/holbertonschool-simple_shell$ /usr/bin/which cat
 /usr/bin/cat
-simple_shell$ 
+/root/holbertonschool-simple_shell$ 
 
 Example 3: The simple shell uses the cat built-in located in the /usr/bin/ directory
 to mimic the which command, locating the binary corresponding
@@ -49,8 +49,8 @@ to the command name passed in arguments.
 It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-simple_shell$ /usr/bin/clear
-simple_shell$ 
+/root/holbertonschool-simple_shell$ /usr/bin/clear
+/root/holbertonschool-simple_shell$ 
 
 Example 4: The simple shell uses the clear built-in located in the /usr/bin/ directory
 to mimic the clear command, which recolors the terminal entirely in black

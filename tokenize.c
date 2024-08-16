@@ -1,4 +1,4 @@
-#include "hsh.h"
+#include "simple_shell.h"
 /**
  * tokenize - create an arrays of tokens
  * @user_input: to tokenize
