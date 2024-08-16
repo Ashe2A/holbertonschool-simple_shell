@@ -11,6 +11,7 @@ int check_and_run_builtin(char *user_input, char **av)
 	built_in_t built_in_list[] = {
 		{"env\n", _printenv},
 		{"cd\n", change_directory},
+		{"exit\n", _exit_function},
 		{NULL, NULL}
 	};
 	int i = 0;

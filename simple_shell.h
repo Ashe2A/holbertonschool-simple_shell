@@ -1,8 +1,7 @@
 #ifndef SIMPLE_SHELL_H
 #define SIMPLE_SHELL_H
 
-/*****************LIBRARIES****************/
-
+/***** LIBRARIES *****/
 #include <string.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -11,11 +10,11 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-/*******************CONSTANTS*****************/
-
+/***** CONSTANTS *****/
 extern char **environ;
+extern void _exit(int __status) __attribute__ ((__noreturn__));
 
-/*****************STRUCTURES***************/
+/***************************** STRUCTURES *****************************/
 
 /**
  * struct dir_s - node to store directory of PATH variable
@@ -41,7 +40,7 @@ typedef struct built_in_s
 	void (*f)(char *, char **);
 } built_in_t;
 
-/*****************FUNCTIONS****************/
+/************************* FUNCTIONS *************************/
 /* Main */
 int initialize_mode_and_prompt(void);
 void handle_eof_cleanup(int, char *);
@@ -51,28 +50,27 @@ void handle_user_command(char *, int, char **, int, char **);
 int check_and_run_builtin(char *, char **av);
 char **tokenize(char *);
 char *path_parse(char *);
-pid_t fork_and_check(char **tokens, char *full_path, pid_t *child_pid);
-void execve_and_check(char **tokens, char *full_path, char **env);
-void handle_command_not_found(int is_interactive, char **av, char **tokens);
-void reset_ressources(char **tokens, char *full_path, int is_full_path,
-						char *user_input, int read);
+pid_t fork_and_check(char **, char *, pid_t *);
+void execve_and_check(char **, char *, char **);
+void handle_command_not_found(int, char **, char **);
+void reset_ressources(char **, char *, int,	char *, int);
 
 /* path_parse */
 dir_t *build_path_list(dir_t **, char *);
-dir_t *create_node(dir_t **head, char *name, char *value);
-void free_path_dir(dir_t *head);
-pid_t fork_and_check(char **tokens, char *full_path, pid_t *child_pid);
+dir_t *create_node(dir_t **, char *, char *);
+void free_path_dir(dir_t *);
+pid_t fork_and_check(char **, char *, pid_t *);
 
-/* Built-in */
+/* Built-ins */
 void _printenv(char *, char **);
 void change_directory(char *, char **);
+void _exit_function(char *user_input __attribute__((unused)));
 
 /* Helper functions */
-void error_handling(char *msg, int exit_code);
-char *_getenv(const char *name);
-void cleanup_tokens_and_path(char **tokens, char *full_path);
-void child_error_handling(char *msg, int exit_code);
-void free_tokens(char **tokens);
-
+void error_handling(char *, int);
+char *_getenv(const char *);
+void cleanup_tokens_and_path(char **, char *);
+void child_error_handling(char *, int);
+void free_tokens(char **);
 
 #endif /* SIMPLE_SHELL_H */

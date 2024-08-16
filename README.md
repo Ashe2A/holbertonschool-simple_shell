@@ -27,4 +27,4 @@ The simple shell uses the same environments used in the initial process it is ca
 You might want to check the environment variables and their content. To do so, simply input ```env```
 
 ## 3. Close simple shell (simple shell ver. 0.4)
-To close the simple shell, simply type the ```exit``` command as-is.
+To close the simple shell, simply type the ```exit``` command as-is. It will elways return 0 (SUCCESS).
