@@ -6,7 +6,8 @@
  * @av: is an array of pointers pointing arrays of string
  * @tokens: is an array of pointers to the extracted tokens
  *
- * Description: the error messages are differents, if the shell is in interactive or non-interactive mode
+ * Description: the error messages are differents,
+ * if the shell is in interactive or non-interactive mode
  *
  * Return: Always nothing
  */

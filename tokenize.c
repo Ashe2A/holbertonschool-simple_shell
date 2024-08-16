@@ -11,12 +11,12 @@ char **tokenize(char *user_input)
 	char *token = NULL; /* Word cutting from user_input by strtok */
 	char *delimiter = " \n";  /* Delimits the tokens */
 	int token_count = 0;	/* Stores the number of tokens in unsr_input */
-	int i = 0;
+	int i = 0; /* Index for tokens */
 	char *cp_input = NULL;	/* Create a copy to count number of tokens */
 
 	/* Copy user_ input and error hanling */
 	cp_input = strdup(user_input);
-	if(cp_input == NULL)
+	if (cp_input == NULL)
 	{
 		free(user_input);
 		user_input = NULL;
@@ -53,12 +53,11 @@ char **tokenize(char *user_input)
 				free(tokens[--i]);
 			free(tokens);
 			free(user_input);
-			error_handling("tokens", 1);
+			error_handling("tokens", EXIT_FAILURE);
 		}
 		i++;
 		token = strtok(NULL, delimiter);
 	}
-
 	/* Null terminate the array of pointer */
 	tokens[i] = NULL;
 
