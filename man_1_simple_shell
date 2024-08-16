@@ -13,12 +13,13 @@ This man page was created by Achraf Jeddi and Johan Villard.
 
 simple_shell is an executable that forks the current Linux shell process,
 hence inheriting and using the same environment variables, and commands.
+The commands uses the commands directly from the /usr/bin/ directory.
 
 .SH EXAMPLES
 The following examples demonstrate the usage of simple_shell:
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-/root/holbertonschool-simple_shell$ /usr/bin/echo echo works on the simple shell
+/root/holbertonschool-simple_shell$ echo "echo works on the simple shell"
 echo works on the simple shell
 /root/holbertonschool-simple_shell$ 
 
@@ -27,7 +28,7 @@ to mimic echo just like in the parent shell, which takes the input
 and turns it into an output. It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-/root/holbertonschool-simple_shell$ /usr/bin/ls /
+/root/holbertonschool-simple_shell$ ls /
 1    boot  etc   lib    lib64   media  opt   root  sbin  sys  usr
 bin  dev   home  lib32  libx32  mnt    proc  run   srv   tmp  var
 /root/holbertonschool-simple_shell$ 
@@ -39,7 +40,7 @@ including hidden files and directories.
 It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-/root/holbertonschool-simple_shell$ /usr/bin/which cat
+/root/holbertonschool-simple_shell$ which cat
 /usr/bin/cat
 /root/holbertonschool-simple_shell$ 
 
@@ -49,7 +50,7 @@ to the command name passed in arguments.
 It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
-/root/holbertonschool-simple_shell$ /usr/bin/clear
+/root/holbertonschool-simple_shell$ clear
 /root/holbertonschool-simple_shell$ 
 
 Example 4: The simple shell uses the clear built-in located in the /usr/bin/ directory

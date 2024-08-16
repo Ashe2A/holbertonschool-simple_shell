@@ -1,4 +1,27 @@
 #include "simple_shell.h"
+
+/**
+ * tokenize_input - tokenize an input
+ * @ui: input to tokenize
+ * @tokens: result (input into tokens)
+ * @token: each token
+ * @delim: token delimiter
+ */
+void tokenize_input(char *ui, char **tokens, char *token, char *delim)
+{
+		tokens[i] = strdup(token);
+		if (tokens[i] == NULL)
+		{
+			while (tokens[i])
+				free(tokens[--i]);
+			free(tokens);
+			free(ui);
+			error_handling("tokens", 1);
+		}
+		i++;
+		token = strtok(NULL, delim);
+}
+
 /**
  * tokenize - create an arrays of tokens
  * @user_input: to tokenize
@@ -22,7 +45,6 @@ char **tokenize(char *user_input)
 		user_input = NULL;
 		error_handling("strdup", EXIT_FAILURE);
 	}
-
 	/* Count the number of tokens */
 	token = strtok(cp_input, delimiter);
 	while (token)
@@ -32,7 +54,6 @@ char **tokenize(char *user_input)
 	}
 	free(cp_input); /* Free the copy */
 	cp_input = NULL;
-
 	/* Allocate memory for tokens + 1 to NULL terminate the array */
 	tokens = malloc(sizeof(char *) * (token_count + 1));
 	if (tokens == NULL)
@@ -41,25 +62,11 @@ char **tokenize(char *user_input)
 		user_input = NULL;
 		error_handling("malloc", EXIT_FAILURE);
 	}
-
 	/* Tokenize user input */
 	token = strtok(user_input, delimiter);
 	while (token)
-	{
-		tokens[i] = strdup(token);
-		if (tokens[i] == NULL)
-		{
-			while (tokens[i])
-				free(tokens[--i]);
-			free(tokens);
-			free(user_input);
-			error_handling("tokens", EXIT_FAILURE);
-		}
-		i++;
-		token = strtok(NULL, delimiter);
-	}
+		tokenize_input(user_input, tokens, token, delimiter);
 	/* Null terminate the array of pointer */
 	tokens[i] = NULL;
-
 	return (tokens);
 }
