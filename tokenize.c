@@ -7,9 +7,12 @@
  * @token: each token
  * @delim: token delimiter
  * @i: token counter
+ *
+ * Return: the token list (result)
  */
-void tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
+char **tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
 {
+	tokens = malloc(sizeof(tokens[i]));
 	tokens[i] = strdup(token);
 	if (tokens[i] == NULL)
 	{
@@ -18,8 +21,10 @@ void tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
 		free(tokens);
 		free(ui);
 		error_handling("tokens", 1);
+		return (NULL);
 	}
 	token = strtok(NULL, delim);
+	return (tokens);
 }
 
 /**
@@ -81,7 +86,7 @@ char **tokenize(char *user_input)
 	token = strtok(user_input, delimiter);
 	while (token)
 	{
-		tokenize_input(user_input, tokens, token, delimiter);
+		tokens = tokenize_input(user_input, tokens, token, delimiter, i);
 		i++;
 	}
 	/* Null terminate the array of pointer */
