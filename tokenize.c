@@ -12,7 +12,7 @@
  */
 char **tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
 {
-	tokens = malloc(sizeof(token));
+	tokens = malloc(sizeof(tokens[i]));
 	tokens[i] = strdup(token);
 	if (tokens[i] == NULL)
 	{
@@ -24,7 +24,6 @@ char **tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
 		return (NULL);
 	}
 	token = strtok(NULL, delim);
-
 	return (tokens);
 }
 
