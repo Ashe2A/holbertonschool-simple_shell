@@ -6,7 +6,7 @@
  *
  * Return: Always nothing
  */
-void _printenv(char *user_input __attribute__((unused)))
+void _printenv(char *user_input __attribute__((unused)), char **av __attribute__((unused)))
 {
 	char **cpy_environ = environ;
 

@@ -6,10 +6,11 @@
  *
  * Return: 0 for no built-in mode, 1 for built-in
  */
-int check_and_run_builtin(char *user_input)
+int check_and_run_builtin(char *user_input, char **av)
 {
 	built_in_t built_in_list[] = {
 		{"env\n", _printenv},
+		{"cd\n", change_directory},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -19,7 +20,7 @@ int check_and_run_builtin(char *user_input)
 	while (built_in_list[i].cmd != NULL)
 	{
 		if (strcmp(user_input, built_in_list[i].cmd) == 0)
-			built_in_list[i].f(user_input);
+			built_in_list[i].f(user_input, av);
 
 		i++;
 	}

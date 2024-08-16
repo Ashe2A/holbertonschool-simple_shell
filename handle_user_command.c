@@ -22,7 +22,7 @@ char **cpy_env, int is_interactive, char **av)
 
 	/* Check empty command_input an Built-in command check */
 		if ((user_input[0] != '\n' && read != 1) &&
-		check_and_run_builtin(user_input) == 0)
+		check_and_run_builtin(user_input, av) == 0)
 		{
 			tokens = tokenize(user_input);	/* Transforms user cmd into arg for execve */
 			/* Cmd is entered with its path or alone */
