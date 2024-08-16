@@ -12,6 +12,7 @@
 
 /***** CONSTANTS *****/
 extern char **environ;
+extern void _exit(int __status) __attribute__ ((__noreturn__));
 
 /***************************** STRUCTURES *****************************/
 
@@ -62,7 +63,7 @@ pid_t fork_and_check(char **, char *, pid_t *);
 
 /* Built-ins */
 void _printenv(char *user_input __attribute__((unused)));
-extern void _exit(int __status) __attribute__ ((__noreturn__));
+void _exit_function(char *user_input __attribute__((unused)));
 
 /* Helper functions */
 void error_handling(char *, int);
