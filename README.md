@@ -20,8 +20,8 @@ The simple shell works akin to a true shell with some differences:
 It has to be noted that **simple shell 0.1** didn't work with arguments, and **simple shell 0.2** implemented that functionality.
 
 ## 2. Managing environments
-### 2.1. Environment used <small>(simple shell ver. 0.2)</small>
-The simple shell uses the same environments used in the initial process it is called in, by duplicating it through global variables. However, the environment variables of the simple shell's process can be changed by writing the binaries or the ```PATH``` file (it will not change the parent process' environment).
+### 2.1. Environment used <small>(simple shell ver. 0.3)</small>
+The simple shell uses the same environments used in the initial process it is called in, by duplicating it through global variables. However, the environment variable ```PATH``` can be rewritten (only for the simple shell's process), and global built-ins can still be changed by basically rewriting the adding executables to the ```/usr/bin/``` directory.
 
 ### 2.2. Check environment (simple shell ver. 1.0)
 You might want to check the environment variables and their content. To do so, simply input ```env```

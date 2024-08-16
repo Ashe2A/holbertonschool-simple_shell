@@ -1,0 +1,59 @@
+.TH _SIMPLE_SHELL "21 août 2024" "1.0" "simple_shell man page"
+
+.SH NAME
+simple_shell - a simpler version of a Linux shell
+
+.SH AUTHORS
+This man page was created by Achraf Jeddi and Johan Villard.
+
+.SH SYNOPSIS
+./simple_shell
+
+.SH DESCRIPTION
+
+simple_shell is an executable that forks the current Linux shell process,
+hence inheriting and using the same environment variables, and commands.
+
+.SH EXAMPLES
+The following examples demonstrate the usage of simple_shell:
+
+root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+simple_shell$ /usr/bin/echo echo works on the simple shell
+echo works on the simple shell
+simple_shell$ 
+
+Example 1: The simple shell uses the echo built-in located in the /usr/bin/ directory
+to mimic echo just like in the parent shell, which takes the input
+and turns it into an output. It then loops to wait for another command.
+
+root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+simple_shell$ /usr/bin/ls /
+1    boot  etc   lib    lib64   media  opt   root  sbin  sys  usr
+bin  dev   home  lib32  libx32  mnt    proc  run   srv   tmp  var
+simple_shell$ 
+
+Example 2: The simple shell uses the ls built-in located in the /usr/bin/ directory
+to mimic ls just like in the parent shell, which outputs the list of files
+and directories contained in the actual root directory with their details,
+including hidden files and directories.
+It then loops to wait for another command.
+
+root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+simple_shell$ /usr/bin/which cat
+/usr/bin/cat
+simple_shell$ 
+
+Example 3: The simple shell uses the cat built-in located in the /usr/bin/ directory
+to mimic the which command, locating the binary corresponding
+to the command name passed in arguments.
+It then loops to wait for another command.
+
+root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+simple_shell$ /usr/bin/clear
+simple_shell$ 
+
+Example 4: The simple shell uses the clear built-in located in the /usr/bin/ directory
+to mimic the clear command, which recolors the terminal entirely in black
+and puts the prompt line back to the top. However, due to the nature of
+the window coloring, the command uses the TERM environment variable.
+It then loops to wait for another command.
