@@ -6,21 +6,44 @@
  * @tokens: result (input into tokens)
  * @token: each token
  * @delim: token delimiter
+ * @i: token counter
  */
-void tokenize_input(char *ui, char **tokens, char *token, char *delim)
+void tokenize_input(char *ui, char **tokens, char *token, char *delim, int i)
 {
-		tokens[i] = strdup(token);
-		if (tokens[i] == NULL)
-		{
-			while (tokens[i])
-				free(tokens[--i]);
-			free(tokens);
-			free(ui);
-			error_handling("tokens", 1);
-		}
-		i++;
-		token = strtok(NULL, delim);
+	tokens[i] = strdup(token);
+	if (tokens[i] == NULL)
+	{
+		while (tokens[i])
+			free(tokens[--i]);
+		free(tokens);
+		free(ui);
+		error_handling("tokens", 1);
+	}
+	token = strtok(NULL, delim);
 }
+
+/**
+ * count_tokens - Count the number of tokens
+ * @token: each token
+ * @cp_input: copy to count number of tokens
+ * @delim: token delimiter
+ *
+ * Return: number of tokens
+ */
+int count_tokens(char *token, char *cp, char *delim)
+{
+	int count = 0;
+
+	token = strtok(cp, delim);
+	while (token)
+	{
+		count++;
+		token = strtok(NULL, delim);
+	}
+	free(cp); /* Free the copy */
+	cp = NULL;
+	return (count);
+ }
 
 /**
  * tokenize - create an arrays of tokens
@@ -45,17 +68,8 @@ char **tokenize(char *user_input)
 		user_input = NULL;
 		error_handling("strdup", EXIT_FAILURE);
 	}
-
 	/* Count the number of tokens */
-	token = strtok(cp_input, delimiter);
-	while (token)
-	{
-		token_count++;
-		token = strtok(NULL, delimiter);
-	}
-	free(cp_input); /* Free the copy */
-	cp_input = NULL;
-
+	token_count = count_tokens(token, cp_input, delimiter);
 	/* Allocate memory for tokens + 1 to NULL terminate the array */
 	tokens = malloc(sizeof(char *) * (token_count + 1));
 	if (tokens == NULL)
@@ -64,13 +78,14 @@ char **tokenize(char *user_input)
 		user_input = NULL;
 		error_handling("malloc", EXIT_FAILURE);
 	}
-
 	/* Tokenize user input */
 	token = strtok(user_input, delimiter);
 	while (token)
+	{
 		tokenize_input(user_input, tokens, token, delimiter);
+		i++;
+	}
 	/* Null terminate the array of pointer */
 	tokens[i] = NULL;
-
 	return (tokens);
 }
