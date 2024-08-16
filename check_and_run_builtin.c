@@ -3,10 +3,11 @@
 /**
  * check_and_run_builtin - call built-in function if user_input match
  * @user_input: to check
+ * @argv: is an array of pointers stored arguments
  *
  * Return: 0 for no built-in mode, 1 for built-in
  */
-int check_and_run_builtin(char *user_input, char **av)
+int check_and_run_builtin(char *user_input, char **argv)
 {
 	built_in_t built_in_list[] = {
 		{"env\n", _printenv},
@@ -21,7 +22,7 @@ int check_and_run_builtin(char *user_input, char **av)
 	while (built_in_list[i].cmd != NULL)
 	{
 		if (strcmp(user_input, built_in_list[i].cmd) == 0)
-			built_in_list[i].f(user_input, av);
+			built_in_list[i].f(user_input, argv);
 
 		i++;
 	}

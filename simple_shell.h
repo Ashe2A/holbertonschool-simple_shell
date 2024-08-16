@@ -64,7 +64,7 @@ pid_t fork_and_check(char **, char *, pid_t *);
 /* Built-ins */
 void _printenv(char *, char **);
 void change_directory(char *, char **);
-void _exit_function(char *user_input __attribute__((unused)));
+void _exit_function(char *, char **);
 
 /* Helper functions */
 void error_handling(char *, int);
