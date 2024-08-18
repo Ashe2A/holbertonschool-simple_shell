@@ -34,7 +34,7 @@ char *path_parse(char *command)
 		strcat(full_path, "/");
 		strcat(full_path, command);
 
-		if (access(full_path, F_OK) == 0)
+		if (access(full_path, X_OK) == 0)
 		{
 			free_path_dir(head);
 			return (full_path);
