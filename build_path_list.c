@@ -1,10 +1,11 @@
 #include "simple_shell.h"
 
 /**
- * build_path_list - extracts the environment variable directories
- * to build a linked list with
- * @head: is the start of a linked list
- * @name: is the name if environment variable
+ * build_path_list - gets, slices and stores
+ * the value of the environment variable in a linked list
+ * @head: is a pointer to the start of a linked list
+ * @name: is a character string containing
+ * the name of an environment variable
  *
  * Return: the head of the constructed linked list
  * or NULL if the PATH is not specified
@@ -28,6 +29,7 @@ dir_t *build_path_list(dir_t **head, char *name)
 	token = strtok(cpy_path_pathes, ":");
 	while (token)
 	{
+		/* Create a new node and store path in it */
 		create_node(head, name, token);
 		token = strtok(NULL, ":");
 	}
