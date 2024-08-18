@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"simple_shell.h": "c",
+		"typeinfo": "c",
+		"utility": "c"
+	}
+}

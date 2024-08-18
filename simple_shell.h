@@ -9,10 +9,12 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <linux/limits.h>
+#include <sys/stat.h>
 
-/***** CONSTANTS *****/
+/***************************** GLOBAL VARIABLES ***********************/
 extern char **environ;
-extern void _exit(int __status) __attribute__ ((__noreturn__));
+extern char **custom_environ;
 
 /***************************** STRUCTURES *****************************/
 
@@ -40,18 +42,19 @@ typedef struct built_in_s
 	void (*f)(char *, char **);
 } built_in_t;
 
-/************************* FUNCTIONS *************************/
+/******************************* FUNCTIONS ****************************/
 /* Main */
+char **create_custom_environ(void);
 int initialize_mode_and_prompt(void);
 void handle_eof_cleanup(int, char *);
-void handle_user_command(char *, int, char **, int, char **);
+void handle_user_command(char *, int, int, char **);
 
 /* handle_user_command */
-int check_and_run_builtin(char *, char **av);
+int check_and_run_builtin(char *, char **);
 char **tokenize(char *);
 char *path_parse(char *);
 pid_t fork_and_check(char **, char *, pid_t *);
-void execve_and_check(char **, char *, char **);
+void execve_and_check(char **, char *);
 void handle_command_not_found(int, char **, char **);
 void reset_ressources(char **, char *, int,	char *, int);
 
@@ -59,16 +62,20 @@ void reset_ressources(char **, char *, int,	char *, int);
 dir_t *build_path_list(dir_t **, char *);
 dir_t *create_node(dir_t **, char *, char *);
 void free_path_dir(dir_t *);
-pid_t fork_and_check(char **, char *, pid_t *);
 
 /* Built-ins */
 void _printenv(char *, char **);
 void change_directory(char *, char **);
 void _exit_function(char *, char **);
+void cmd_setenv(char *, char **);
+void cmd_unsetenv(char *, char **);
+
 
 /* Helper functions */
 void error_handling(char *, int);
 char *_getenv(const char *);
+int _setenv(const char *, const char *, int);
+int _unsetenv(const char *name);
 void cleanup_tokens_and_path(char **, char *);
 void child_error_handling(char *, int);
 void free_tokens(char **);

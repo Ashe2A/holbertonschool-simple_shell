@@ -9,15 +9,19 @@
 char *_getenv(const char *name)
 {
 	size_t length = strlen(name);
+	char **env = custom_environ;
 
-	if (name == NULL || environ == NULL)
+	if (*name == '\0' || custom_environ == NULL)
 		return (NULL);
-	while (*environ != NULL)
-	{
-		if (strncmp(name, *environ, length) == 0 && (*environ)[length] == '=')
-			return (*environ + length + 1);
 
-		environ++;
+	while (*env != NULL)
+	{
+		/* Compare name with the list and ensure that is has the good length */
+		if (strncmp(name, *env, length) == 0 && (*env)[length] == '=')
+			/* Put the pointer after '=' to display variable value */
+			return (*env + length + 1);
+
+		env++;
 	}
 	return (NULL);
 }
