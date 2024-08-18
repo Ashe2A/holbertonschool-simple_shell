@@ -30,7 +30,7 @@ dir_t *build_path_list(dir_t **head, char *name)
 	while (token)
 	{
 		/* Create a new node and store path in it */
-		create_node(head, name, token);
+		create_node_at_end(head, name, token);
 		token = strtok(NULL, ":");
 	}
 
