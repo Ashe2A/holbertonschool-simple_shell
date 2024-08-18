@@ -57,7 +57,7 @@ void reset_ressources(char **, char *, int,	char *, int);
 
 /* path_parse */
 dir_t *build_path_list(dir_t **, char *);
-dir_t *create_node(dir_t **, char *, char *);
+dir_t *create_node_at_end(dir_t **, char *, char *);
 void free_path_dir(dir_t *);
 pid_t fork_and_check(char **, char *, pid_t *);
 
