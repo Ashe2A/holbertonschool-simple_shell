@@ -20,17 +20,21 @@ char **cpy_env, int is_interactive, char **av)
 	pid_t child_pid = 0;  /* is an ID of the child */
 	int status;	/* of the child used by wait() */
 
-	/* Check empty command_input an Built-in command check */
-		if ((user_input[0] != '\n' && read != 1) &&
-		check_and_run_builtin(user_input) == 0)
+	/* Check empty command_input */
+	if (user_input[0] != '\n' && read != 1)
+	{
+		tokens = tokenize(user_input);	/* Transforms user cmd into arg for execve */
+
+		/* Built-in command check */
+		if (check_and_run_builtin(user_input) == 0)
 		{
-			tokens = tokenize(user_input);	/* Transforms user cmd into arg for execve */
 			/* Cmd is entered with its path or alone */
 			is_full_path = access(tokens[0], X_OK);
 			full_path = (is_full_path == 0) ? tokens[0] : path_parse(tokens[0]);
 
 			if (full_path != NULL)
-			{	/* Create a child process */
+			{
+				/* Create a child process */
 				child_pid = fork_and_check(tokens, full_path, &child_pid);
 				if (child_pid == 0)	/* In the child process */
 					execve_and_check(tokens, full_path, cpy_env);
@@ -41,6 +45,7 @@ char **cpy_env, int is_interactive, char **av)
 				/* Adapts the cmd not found msg if interactive mode is enabled or not. */
 				handle_command_not_found(is_interactive, av, tokens);
 		}
-		/* Free all allocated memory */
-		reset_ressources(tokens, full_path, is_full_path, user_input, read);
+	}
+	/* Free all allocated memory */
+	reset_ressources(tokens, full_path, is_full_path, user_input, read);
 }
