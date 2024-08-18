@@ -102,8 +102,5 @@ char **tokenize(char *user_input)
 
 	tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
 
-	/* This function is the last to use user_input */
-	free(user_input);
-
 	return (tokens);
 }

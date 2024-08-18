@@ -15,12 +15,13 @@ dir_t *build_path_list(dir_t **head, char *name)
 	char *token = NULL;
 	char *cpy_path_pathes = NULL;
 	/* Stores the value of the requested environment variable */
-	char *path_pathes = _getenv(name);
+	char *path_pathes;
 
 	if (name == NULL)
 		return (NULL);
 
 	/* Create a copy so as not to destroy the original */
+	path_pathes = _getenv(name);
 	cpy_path_pathes = strdup(path_pathes);
 	if (cpy_path_pathes == NULL)
 		error_handling("strdup", EXIT_FAILURE);
