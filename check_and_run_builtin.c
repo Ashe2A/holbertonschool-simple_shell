@@ -1,16 +1,20 @@
 #include "simple_shell.h"
 
 /**
- * check_and_run_builtin - call built-in function if user_input match
- * @user_input: to check
+ * check_and_run_builtin - call the built-in function
+ * of the corresponding token if exists
+ * @user_input: is an array of character strings
+ * containing the raw data entered by the user
+ * @tokens: is an array of pointers to character strings
+ * containing the command and arguments given by the user
  *
  * Return: 0 for no built-in mode, 1 for built-in
  */
-int check_and_run_builtin(char *user_input)
+int check_and_run_builtin(char *user_input, char **tokens)
 {
 	built_in_t built_in_list[] = {
-		{"env\n", _printenv},
-		{"exit\n", _exit_function},
+		{"env", _printenv},
+		{"exit", _exit_function},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -19,8 +23,8 @@ int check_and_run_builtin(char *user_input)
 	/* Compare user's input with cmd from structure an f run function if find */
 	while (built_in_list[i].cmd != NULL)
 	{
-		if (strcmp(user_input, built_in_list[i].cmd) == 0)
-			built_in_list[i].f(user_input);
+		if (strcmp(tokens[0], built_in_list[i].cmd) == 0)
+			built_in_list[i].f(user_input, tokens);
 
 		i++;
 	}

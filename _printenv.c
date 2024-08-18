@@ -3,10 +3,12 @@
 /**
  * _printenv - print the environments variables
  * @user_input: unused
+ * @tokens: unsused
  *
  * Return: Always nothing
  */
-void _printenv(char *user_input __attribute__((unused)))
+void _printenv(char *user_input __attribute__((unused)),
+			char **tokens __attribute__((unused)))
 {
 	char **cpy_environ = environ;
 
