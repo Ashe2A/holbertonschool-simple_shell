@@ -28,7 +28,6 @@ int main(int argc __attribute__((unused)), char **argv)
 		/* Parse and execute command */
 		handle_user_command(user_input, bytes_read, cp_env, is_interactive, argv);
 	}
-
 	/* Cleanup memory */
 	free(user_input);
 }
