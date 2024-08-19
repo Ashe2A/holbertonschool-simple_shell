@@ -19,5 +19,5 @@ void handle_command_not_found(int is_interactive, char **av, char **tokens)
 		exit(127);
 	}
 	else
-		printf("%s: command not found: %s\n", av[0], tokens[0]);
+		perror(av[0]);
 }
