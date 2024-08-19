@@ -47,5 +47,5 @@ char **cpy_env, int is_interactive, char **av)
 		}
 	}
 	/* Free all allocated memory */
-	cleanup_tokens_and_path(tokens, full_path);
+	reset_ressources(tokens, full_path, is_f_path, use_input, read);
 }
