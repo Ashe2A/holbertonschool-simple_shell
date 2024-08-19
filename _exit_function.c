@@ -8,11 +8,7 @@
 void _exit_function(char *user_input, char **tokens)
 {
 	if (user_input == NULL || tokens == NULL)
-	{
-		free(user_input);
-		free_tokens(tokens);
 		exit(EXIT_FAILURE);
-	}
 
 	free(user_input);
 	free_tokens(tokens);
