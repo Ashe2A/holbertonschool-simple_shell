@@ -27,7 +27,7 @@ int check_and_run_builtin(char *user_input, char **tokens)
 		{
 			built_in_list[i].f(user_input, tokens);
 			/* Built-in mode on */
-			return (1);
+			return (EXIT_FAILURE);
 		}
 		i++;
 	}
