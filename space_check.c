@@ -1,7 +1,7 @@
 #include "simple_shell.h"
 
 /**
- * input_space_check - check if the user input is empty after space
+ * space_check - check if the user input is empty after space
  * @user_input: is a string storing the command of the user
  *
  * Return: 1 if command is find, otherwise 0
