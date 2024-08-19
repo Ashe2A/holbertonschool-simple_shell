@@ -62,7 +62,7 @@ void free_path_dir(dir_t *);
 
 /* Built-ins */
 void _printenv(char *, char **);
-void _exit_function(char *, char **);
+int _exit_function(char *, char **);
 
 /* Helper functions */
 void error_handling(char *, int);
