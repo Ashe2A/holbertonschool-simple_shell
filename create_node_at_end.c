@@ -6,6 +6,7 @@
  * @head: A pointer to the pointer of the first node in the linked list
  * @name: is a string containing the name of the environment variable
  * @value: is the value of the variable
+ * @user_input: is a character string containing the raw input
  *
  * Description: The function creates a new node by allocating memory to it.
  * It copies the values of name and value into its structure.
@@ -15,7 +16,8 @@
  * Return: A pointer to the newly created node, or NULL if memory allocation
  * fails
  */
-dir_t *create_node_at_end(dir_t **head, char *name, char *value)
+dir_t *create_node_at_end(dir_t **head, char *name, char *value,
+				char *user_input)
 {
 	dir_t *new_node = NULL, *curr_node = NULL;
 
@@ -23,6 +25,7 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value)
 	new_node = malloc(sizeof(dir_t));
 	if (new_node == NULL)	/* Malloc check */
 	{
+		free(user_input);
 		free_path_dir(*head);
 		error_handling("malloc", EXIT_FAILURE);
 	}
@@ -33,6 +36,7 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value)
 	/* strdup check */
 	if (new_node->name == NULL || new_node->path == NULL)
 	{
+		free(user_input);
 		free_path_dir(*head);
 		error_handling("strdup", EXIT_FAILURE);
 	}

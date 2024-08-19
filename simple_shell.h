@@ -49,17 +49,16 @@ void handle_user_command(char *, int, char **, int, char **);
 /* handle_user_command */
 int check_and_run_builtin(char *, char **);
 char **tokenize(char *);
-char *path_parse(char *);
-pid_t fork_and_check(char **, char *, pid_t *);
-void execve_and_check(char **, char *, char **);
+char *path_parse(char *, char *);
+pid_t fork_and_check(char **, char *, pid_t *, char *);
+void execve_and_check(char **, char *, char **, char *);
 void handle_command_not_found(int, char **, char **);
 void reset_ressources(char **, char *, int,	char *, int);
 
 /* path_parse */
-dir_t *build_path_list(dir_t **, char *);
-dir_t *create_node_at_end(dir_t **, char *, char *);
+dir_t *build_path_list(dir_t **, char *, char *);
+dir_t *create_node_at_end(dir_t **, char *, char *, char *);
 void free_path_dir(dir_t *);
-pid_t fork_and_check(char **, char *, pid_t *);
 
 /* Built-ins */
 void _printenv(char *, char **);

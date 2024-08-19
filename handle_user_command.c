@@ -2,7 +2,7 @@
 
 /**
  * handle_user_command - parses an executes user's input command
- * @user_input: is a string. that stores the command given by the user
+ * @use_input: is a string. that stores the command given by the user
  * @read: is an integer that stores the number of bytes read by getline()
  * @cpy_env: is double array that contains
  * all environment variable of the shell
@@ -11,33 +11,33 @@
  *
  * Return: Always nothing
  */
-void handle_user_command(char *user_input, int read,
+void handle_user_command(char *use_input, int read,
 char **cpy_env, int is_interactive, char **av)
 {
 	char **tokens = NULL; /* Is an array of pointers to the extracted tokens */
-	int is_full_path = 1; /* 0 if user enter a command with full path */
+	int is_f_path = 1; /* 0 if user enter a command with full path */
 	char *full_path = NULL; /* is the complete path of user's input */
 	pid_t child_pid = 0;  /* is an ID of the child */
 	int status;	/* of the child used by wait() */
 
 	/* Check empty command_input */
-	if ((user_input[0] != '\n' && read != 1) && space_check(user_input) != 0)
+	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
 	{
-		tokens = tokenize(user_input);	/* Transforms user cmd into arg for execve */
+		tokens = tokenize(use_input);	/* Transforms user cmd into arg for execve */
 
 		/* Built-in command check */
-		if (check_and_run_builtin(user_input, tokens) == 0)
+		if (check_and_run_builtin(use_input, tokens) == 0)
 		{
 			/* Cmd is entered with its path or alone */
-			is_full_path = access(tokens[0], X_OK);
-			full_path = (is_full_path == 0) ? tokens[0] : path_parse(tokens[0]);
+			is_f_path = access(tokens[0], X_OK);
+			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
 
 			if (full_path != NULL)
 			{
 				/* Create a child process */
-				child_pid = fork_and_check(tokens, full_path, &child_pid);
+				child_pid = fork_and_check(tokens, full_path, &child_pid, use_input);
 				if (child_pid == 0)	/* In the child process */
-					execve_and_check(tokens, full_path, cpy_env);
+					execve_and_check(tokens, full_path, cpy_env, use_input);
 				else	/* in the parent process */
 					wait(&status);
 			}
@@ -47,5 +47,5 @@ char **cpy_env, int is_interactive, char **av)
 		}
 	}
 	/* Free all allocated memory */
-	reset_ressources(tokens, full_path, is_full_path, user_input, read);
+	cleanup_tokens_and_path(tokens, full_path);
 }

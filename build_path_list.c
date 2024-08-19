@@ -6,11 +6,12 @@
  * @head: is a pointer to the start of a linked list
  * @name: is a character string containing
  * the name of an environment variable
+ * @user_input: is a character string containing the raw input of the user
  *
  * Return: the head of the constructed linked list
  * or NULL if the PATH is not specified
  */
-dir_t *build_path_list(dir_t **head, char *name)
+dir_t *build_path_list(dir_t **head, char *name, char *user_input)
 {
 	char *token = NULL;
 	char *cpy_path_pathes = NULL;
@@ -24,14 +25,17 @@ dir_t *build_path_list(dir_t **head, char *name)
 	path_pathes = _getenv(name);
 	cpy_path_pathes = strdup(path_pathes);
 	if (cpy_path_pathes == NULL)
+	{
+		free(user_input);
 		error_handling("strdup", EXIT_FAILURE);
+	}
 
 	/* Tokenises file paths and stores them in a linked list */
 	token = strtok(cpy_path_pathes, ":");
 	while (token)
 	{
 		/* Create a new node and store path in it */
-		create_node_at_end(head, name, token);
+		create_node_at_end(head, name, token, user_input);
 		token = strtok(NULL, ":");
 	}
 
