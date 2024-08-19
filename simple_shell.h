@@ -71,6 +71,5 @@ void cleanup_tokens_and_path(char **, char *);
 void child_error_handling(char *, int);
 void free_tokens(char **);
 int space_check(char *user_input);
-void _exit_(int status);
 
 #endif /* SIMPLE_SHELL_H */
