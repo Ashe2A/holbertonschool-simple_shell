@@ -31,5 +31,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	/* Cleanup memory */
 	free(user_input);
 
+	printf("\n");
+
 	return (0);
 }
