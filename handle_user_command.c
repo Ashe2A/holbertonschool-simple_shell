@@ -21,7 +21,7 @@ char **cpy_env, int is_interactive, char **av)
 	int status;	/* of the child used by wait() */
 
 	/* Check empty command_input */
-	if (user_input[0] != '\n' && read != 1)
+	if ((user_input[0] != '\n' && read != 1) && space_check(user_input) != 0)
 	{
 		tokens = tokenize(user_input);	/* Transforms user cmd into arg for execve */
 
