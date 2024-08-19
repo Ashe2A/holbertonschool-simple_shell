@@ -14,7 +14,6 @@ void handle_eof_cleanup(int read, char *user_input)
 	{
 		/* Memory clean up */
 		free(user_input);
-		printf("\n");
 		exit(EXIT_SUCCESS);
 	}
 }
