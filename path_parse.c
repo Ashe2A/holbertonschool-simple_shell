@@ -28,7 +28,10 @@ char *path_parse(char *command)
 
 		full_path = malloc(sizeof(char) * (path_length + 2));
 		if (full_path == NULL)
+		{
+			free_path_dir(head);
 			error_handling("malloc", EXIT_FAILURE);
+		}
 
 		strcpy(full_path, curr_node->path);
 		strcat(full_path, "/");
