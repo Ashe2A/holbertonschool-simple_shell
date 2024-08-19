@@ -8,6 +8,6 @@
 void _exit_function(char *user_input, char **tokens)
 {
 	free(user_input);
-	free(tokens);
+	free_tokens(tokens);
 	exit(EXIT_SUCCESS);
 }
