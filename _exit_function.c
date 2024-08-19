@@ -8,5 +8,5 @@
 void _exit_function(char *user_input, char **tokens __attribute__((unused)))
 {
 	free(user_input);
-	_exit(0);
+	exit(EXIT_SUCCESS);
 }
