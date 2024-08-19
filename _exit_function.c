@@ -7,7 +7,7 @@
  *
  * Return: the code of the status
  */
-int _exit_function(char *user_input, char **tokens)
+void _exit_function(char *user_input, char **tokens)
 {
 	if (user_input == NULL || tokens == NULL)
 		exit(EXIT_FAILURE);
