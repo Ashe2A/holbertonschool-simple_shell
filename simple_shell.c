@@ -30,4 +30,6 @@ int main(int argc __attribute__((unused)), char **argv)
 	}
 	/* Cleanup memory */
 	free(user_input);
+
+	return (0);
 }
