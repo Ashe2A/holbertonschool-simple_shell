@@ -11,6 +11,7 @@ void _exit_function(char *user_input, char **tokens)
 		exit(EXIT_FAILURE);
 
 	free(user_input);
+	user_input = NULL;
 	free_tokens(tokens);
 	exit(EXIT_SUCCESS);
 }
