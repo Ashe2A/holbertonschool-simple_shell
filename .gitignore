@@ -6,3 +6,5 @@ vgcore*
 core*
 .*swp
 *main.c
+.vscode
+./test
