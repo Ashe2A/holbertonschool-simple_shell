@@ -21,7 +21,7 @@ The following examples demonstrate the usage of simple_shell:
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ echo "echo works on the simple shell"
 echo works on the simple shell
-/root/holbertonschool-simple_shell$ 
+/root/holbertonschool-simple_shell$
 
 Example 1: The simple shell uses the echo command located in the /usr/bin/ directory
 to mimic echo just like in the parent shell, which takes the input
@@ -31,7 +31,7 @@ root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ ls /
 1    boot  etc   lib    lib64   media  opt   root  sbin  sys  usr
 bin  dev   home  lib32  libx32  mnt    proc  run   srv   tmp  var
-/root/holbertonschool-simple_shell$ 
+/root/holbertonschool-simple_shell$
 
 Example 2: The simple shell uses the ls command located in the /usr/bin/ directory
 to mimic ls just like in the parent shell, which outputs the list of files
@@ -42,7 +42,7 @@ It then loops to wait for another command.
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ which cat
 /usr/bin/cat
-/root/holbertonschool-simple_shell$ 
+/root/holbertonschool-simple_shell$
 
 Example 3: The simple shell uses the cat command located in the /usr/bin/ directory
 to mimic the which command, locating the binary corresponding
@@ -51,7 +51,7 @@ It then loops to wait for another command.
 
 root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ clear
-/root/holbertonschool-simple_shell$ 
+/root/holbertonschool-simple_shell$
 
 Example 4: The simple shell uses the clear command located in the /usr/bin/ directory
 to mimic the clear command, which recolors the terminal entirely in black
