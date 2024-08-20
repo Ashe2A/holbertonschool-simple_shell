@@ -21,10 +21,9 @@ void reset_ressources(char **tokens, char *full_path, int is_full_path,
 		/* Edge case: if the user input a full path command */
 		if (is_full_path == 0)
 		{
-			free(full_path);
-			free(tokens[0]);
-			free(tokens[1]);
-			free(tokens);
+			/* Don't free full_path because it had the same address as tokens[0] */
+			/* Else double free */
+			free_tokens(tokens);
 		}
 		else
 			cleanup_tokens_and_path(tokens, full_path);	/* Memory clean up */
