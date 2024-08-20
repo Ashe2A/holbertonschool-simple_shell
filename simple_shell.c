@@ -15,7 +15,6 @@ int main(int argc __attribute__((unused)), char **argv)
 	char *user_input = NULL; /* Buffer to store user input */
 	size_t n = 0;	/* is the number of bytes allocated to user_input by getline */
 	char **cp_env = environ; /* Create a copy to full access to command */
-	int child_status = 0; /* Stores exit value of the child */
 
 	while (1)	/* Infinite loop for shell */
 	{
@@ -27,8 +26,7 @@ int main(int argc __attribute__((unused)), char **argv)
 		handle_eof_cleanup(bytes_read, user_input);
 
 		/* Parse and execute command */
-		child_status = handle_user_command(user_input, bytes_read,
-			cp_env, is_interactive, argv);
+		handle_user_command(user_input, bytes_read, cp_env, is_interactive, argv);
 	}
 
 	/* Cleanup memory */
