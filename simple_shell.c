@@ -29,10 +29,6 @@ int main(int argc __attribute__((unused)), char **argv)
 		/* Parse and execute command */
 		child_status = handle_user_command(user_input, bytes_read,
 			cp_env, is_interactive, argv);
-
-		/* Return the child status if non-interactive */
-		if (is_interactive == 0)
-			return (child_status);
 	}
 
 	/* Cleanup memory */
