@@ -10,7 +10,7 @@
 	*/
 int main(int argc __attribute__((unused)), char **argv)
 {
-	int is_interactive = 0; /* 0 is off, 1 is on on */
+	int is_interactive = 0; /* 0 is off, 1 is on */
 	int bytes_read = 0; /* Is the number of bytes bytes_read by getline */
 	char *user_input = NULL; /* Buffer to store user input */
 	size_t n = 0;	/* is the number of bytes allocated to user_input by getline */
