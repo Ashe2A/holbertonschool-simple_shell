@@ -8,11 +8,12 @@
  * all environment variable of the shell
  * @is_interactive: 1 for interactive mode and 0 for non-interactive
  * @av: is an array of pointers pointing arrays of string
+ * @child_status: is the integer that return its exit status
  *
- * Return: Always nothing
+ * Return: the child status, 0 if no error, otherwise an other error code
  */
 int handle_user_command(char *use_input, int read,
-char **cpy_env, int is_interactive, char **av)
+char **cpy_env, int is_interactive, char **av, int *child_status)
 {
 	char **tokens = NULL; /* Is an array of pointers to the extracted tokens */
 	int is_f_path = 1; /* 0 if user enter a command with full path */
@@ -22,17 +23,14 @@ char **cpy_env, int is_interactive, char **av)
 
 	/* Check empty command_input */
 	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
-	{	 /*** Malloc ***/
+	{
 		tokens = tokenize(use_input);	/* Transforms user cmd into arg for execve */
 
 		/* Built-in command check */
 		if (check_and_run_builtin(use_input, tokens) == 0)
-		{
-			/* Cmd is entered with its path or alone */
+		{	/* Cmd is entered with its path or alone */
 			is_f_path = access(tokens[0], X_OK);
-			/*** Malloc if path_parse ***/
 			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
-
 			if (full_path != NULL)
 			{
 				/* Create a child process */
@@ -50,5 +48,10 @@ char **cpy_env, int is_interactive, char **av)
 	/* Free all allocated memory */
 	reset_ressources(tokens, full_path, is_f_path, use_input, read);
 
-	return (WEXITSTATUS(status));
+	if (WIFEXITED(status) != 0)	/* Child encountered an error ? */
+	{
+		*child_status = WEXITSTATUS(status);
+		return (*child_status);	/* Return error code */
+	}
+	return (0);	/* No error encountered by the child */
 }

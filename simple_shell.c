@@ -14,7 +14,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	int bytes_read = 0; /* Is the number of bytes bytes_read by getline */
 	char *user_input = NULL; /* Buffer to store user input */
 	size_t n = 0;	/* is the number of bytes allocated to user_input by getline */
-	int status_child = 0;
+	int child_status = 0;
 
 	while (1)	/* Infinite loop for shell */
 	{
@@ -23,11 +23,11 @@ int main(int argc __attribute__((unused)), char **argv)
 
 		/* Wait and store the user's input; manages CTRL + D */
 		bytes_read = getline(&user_input, &n, stdin);
-		handle_eof_cleanup(bytes_read, user_input, status_child);
+		handle_eof_cleanup(bytes_read, user_input, child_status);
 
 		/* Parse and execute command */
-		status_child = handle_user_command(user_input, bytes_read,
-						environ, is_interactive, argv);
+		child_status = handle_user_command(user_input, bytes_read,
+						environ, is_interactive, argv, &child_status);
 	}
 
 	/* Cleanup memory */
