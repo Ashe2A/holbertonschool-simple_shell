@@ -15,7 +15,7 @@ void handle_command_not_found(int is_interactive, char **av, char **tokens)
 {
 	if (is_interactive == 0)
 	{
-		printf("%s: %d: %s: not found", av[0], EXIT_FAILURE, tokens[0]);
+		fprintf(stderr, "%s: %d: %s: not found\n", av[0], EXIT_FAILURE, tokens[0]);
 		exit(127);
 	}
 	else
