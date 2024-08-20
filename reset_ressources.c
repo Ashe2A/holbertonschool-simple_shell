@@ -22,6 +22,8 @@ void reset_ressources(char **tokens, char *full_path, int is_full_path,
 		if (is_full_path == 0)
 		{
 			free(full_path);
+			free(tokens[0]);
+			free(tokens[1]);
 			free(tokens);
 		}
 		else

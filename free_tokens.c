@@ -8,11 +8,13 @@
  */
 void free_tokens(char **tokens)
 {
-	char **current = tokens;
+	char **current;
 
 	/* Don't execute the function if tokens is empty */
 	if (tokens == NULL)
 		return;
+
+	current = tokens;
 
 	while (*current != NULL)
 	{
