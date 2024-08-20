@@ -44,7 +44,7 @@ char **cpy_env, int is_interactive, char **av)
 			}
 			else
 				/* Adapts the cmd not found msg if interactive mode is enabled or not. */
-				handle_command_not_found(is_interactive, av, tokens);
+				handle_command_not_found(is_interactive, av, tokens, use_input);
 		}
 	}
 	/* Free all allocated memory */

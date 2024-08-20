@@ -52,7 +52,7 @@ char **tokenize(char *);
 char *path_parse(char *, char *);
 pid_t fork_and_check(char **, char *, pid_t *, char *);
 void execve_and_check(char **, char *, char **, char *);
-void handle_command_not_found(int, char **, char **);
+void handle_command_not_found(int, char **, char **, char *);
 void reset_ressources(char **, char *, int,	char *, int);
 
 /* path_parse */
