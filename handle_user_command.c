@@ -22,7 +22,7 @@ char **cpy_env, int is_interactive, char **av)
 
 	/* Check empty command_input */
 	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
-	{
+	{	 /*** Malloc ***/
 		tokens = tokenize(use_input);	/* Transforms user cmd into arg for execve */
 
 		/* Built-in command check */
@@ -30,6 +30,7 @@ char **cpy_env, int is_interactive, char **av)
 		{
 			/* Cmd is entered with its path or alone */
 			is_f_path = access(tokens[0], X_OK);
+			/*** Malloc if path_parse ***/
 			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
 
 			if (full_path != NULL)

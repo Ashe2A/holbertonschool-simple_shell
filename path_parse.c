@@ -17,9 +17,9 @@ char *path_parse(char *command, char *user_input)
 	int path_length = 0;
 	char *env_var = "PATH";	/* Stores the path of executables */
 
-	if (command == NULL)
+	if (_getenv(env_var) == NULL)	/* Don't execute if no PATH */
 		return (NULL);
-
+	/*** Malloc ***/
 	head = build_path_list(&head, env_var, user_input);
 	curr_node = head;
 
