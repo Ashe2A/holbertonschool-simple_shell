@@ -14,7 +14,8 @@ int main(int argc __attribute__((unused)), char **argv)
 	int bytes_read = 0; /* Is the number of bytes bytes_read by getline */
 	char *user_input = NULL; /* Buffer to store user input */
 	size_t n = 0;	/* is the number of bytes allocated to user_input by getline */
-	char **cp_env = environ; /* Create a copy to full access to command */
+	char *cp_env[] = {"PATH=/bin", 0};
+	/* Create a copy to full access to command */
 
 	while (1)	/* Infinite loop for shell */
 	{
