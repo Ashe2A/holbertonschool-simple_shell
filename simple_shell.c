@@ -15,7 +15,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	char *user_input = NULL; /* Buffer to store user input */
 	size_t n = 0;	/* is the number of bytes allocated to user_input by getline */
 	char **cp_env = environ; /* Create a copy to full access to command */
-	int child_status = 0; /* Return value of the child */
+	int child_status = 0; /* Stores exit value of the child */
 
 	while (1)	/* Infinite loop for shell */
 	{
@@ -35,11 +35,8 @@ int main(int argc __attribute__((unused)), char **argv)
 			return (child_status);
 	}
 
-
 	/* Cleanup memory */
 	free(user_input);
-
-
 
 	return (0);
 }
