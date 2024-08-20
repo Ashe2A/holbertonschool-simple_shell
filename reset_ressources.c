@@ -27,6 +27,4 @@ void reset_ressources(char **tokens, char *full_path, int is_full_path,
 		else
 			cleanup_tokens_and_path(tokens, full_path);	/* Memory clean up */
 	}
-
-	user_input = NULL;
 }
