@@ -11,7 +11,7 @@
  *
  * Return: Always nothing
  */
-void handle_user_command(char *use_input, int read,
+int handle_user_command(char *use_input, int read,
 char **cpy_env, int is_interactive, char **av)
 {
 	char **tokens = NULL; /* Is an array of pointers to the extracted tokens */
@@ -39,7 +39,7 @@ char **cpy_env, int is_interactive, char **av)
 				if (child_pid == 0)	/* In the child process */
 					execve_and_check(tokens, full_path, cpy_env, use_input);
 				else	/* in the parent process */
-					wait(&status);
+					waitpid(child_pid, &status, 0);
 			}
 			else
 				/* Adapts the cmd not found msg if interactive mode is enabled or not. */
@@ -48,4 +48,6 @@ char **cpy_env, int is_interactive, char **av)
 	}
 	/* Free all allocated memory */
 	reset_ressources(tokens, full_path, is_f_path, use_input, read);
+
+	return (WEXITSTATUS(status));
 }
