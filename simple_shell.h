@@ -43,7 +43,7 @@ typedef struct built_in_s
 /************************* FUNCTIONS *************************/
 /* Main */
 int initialize_mode_and_prompt(void);
-void handle_eof_cleanup(int, char *);
+void handle_eof_cleanup(int, char *, int);
 int handle_user_command(char *, int, char **, int, char **);
 
 /* handle_user_command */
