@@ -16,7 +16,9 @@ void handle_eof_cleanup(int read, char *user_input, int child_status)
 		/* Memory clean up */
 		free(user_input);
 		user_input = NULL;
-		if (child_status > 0)
+
+		/* Return the exit code of the child if its encountered errors */
+		if (child_status != 0)
 			exit(child_status);
 
 		exit(EXIT_SUCCESS);
