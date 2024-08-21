@@ -1,42 +1,14 @@
 #include "simple_shell.h"
 
-int count_tokens(char *token, char *cp_input, char *delim);
-char **tokenize_input(char *ui, char **tokens, char *token,
-char *delim, int count);
-
 /**
- * tokenize - create an arrays of tokens
- * @user_input: to tokenize
- *
- * Return: an array of tokens
+ * error_handling - prints error message and exits shell
+ * @msg: to display when an error occurs
+ * @exit_code: 0 if success, something else (to define) if failure
  */
-char **tokenize(char *user_input)
+void error_handling(char *msg, int exit_code)
 {
-	char **tokens = NULL; /* Array of pointers pointing tokens */
-	char *token = NULL; /* Word cutting from user_input by strtok */
-	char *delimiter = " \n";  /* Delimits the tokens */
-	int token_count = 0;	/* Stores the number of tokens in user_input */
-	char *cp_input = NULL;	/* Create a copy to count number of tokens */
-
-	/* Copy user_input and error hanling */
-	cp_input = strdup(user_input);
-	if (cp_input == NULL)
-	{
-		free(user_input);
-		user_input = NULL;
-		error_handling("strdup", EXIT_FAILURE);
-	}
-
-	/* Count the number of tokens */
-	token_count = count_tokens(token, cp_input, delimiter);
-
-	/* Free the copy */
-	free(cp_input);
-	cp_input = NULL;
-
-	tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
-
-	return (tokens);
+	perror(msg);
+	exit(exit_code);
 }
 
 /**
@@ -98,7 +70,7 @@ char *delim, int count)
 			tokens = NULL;
 			free(ui);
 			ui = NULL;
-			error_handling("strup", EXIT_FAILURE);
+			error_handling("strdup", EXIT_FAILURE);
 		}
 		token = strtok(NULL, delim);
 		i++;
@@ -106,6 +78,40 @@ char *delim, int count)
 
 	/* Null terminate the array of pointer */
 	tokens[i] = NULL;
+
+	return (tokens);
+}
+
+/**
+ * tokenize - tokenize a string
+ * @user_input: to tokenize
+ *
+ * Return: the tokens
+ */
+char **tokenize(char *user_input)
+{
+	char **tokens = NULL; /* list of tokens */
+	char *token = NULL; /* each token will pass here before storage */
+	char *delimiter = " \n"; /* Delimits the tokens in the string */
+	int token_count = 0; /* number of tokens of user input */
+	char *cp_input = NULL; /* copy of the string to count the tokens */
+
+	/* Copy user input and handle errors */
+	cp_input = strdup(user_input);
+	if (cp_input == NULL)
+	{
+		free(user_input);
+		user_input = NULL;
+		error_handling("strdup", EXIT_FAILURE);
+	}
+
+	/* Count the number of tokens */
+	token_count = count_tokens(token, cp_input, delimiter);
+
+	/* Free the copy */
+	free(cp_input);
+	cp_input = NULL;
+	tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
 
 	return (tokens);
 }

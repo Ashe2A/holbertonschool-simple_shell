@@ -60,7 +60,7 @@ void handle_eof_cleanup(int read, char *user_input, int child_status)
 int main(int argc __attribute__((unused)), char **argv)
 {
 	int is_interactive = 0; /* 1 is interactive, 0 (default) is not */
-	int bytes_read = 0; /* number of characters of the user input (counted by getline()) */
+	int bytes_read = 0; /* size of user input (counted by getline()) */
 	char *user_input = NULL; /* Buffer to store user input */
 	size_t n = 0; /* memory allocation for getline() length */
 	int child_status = 0;

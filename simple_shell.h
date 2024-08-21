@@ -12,7 +12,6 @@
 
 /***** CONSTANTS *****/
 extern char **environ;
-extern void _exit(int __status) __attribute__ ((__noreturn__));
 
 /***************************** STRUCTURES *****************************/
 
@@ -49,6 +48,8 @@ int handle_user_command(char *, int, char **, int, char **, int*);
 /* handle_user_command */
 int check_and_run_builtin(char *, char **, int);
 char **tokenize(char *);
+int count_tokens(char *, char *, char *);
+char **tokenize_input(char *, char **, char *, char *, int);
 char *path_parse(char *, char *);
 pid_t fork_and_check(char **, char *, pid_t *, char *);
 void execve_and_check(char **, char *, char **, char *);

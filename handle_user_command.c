@@ -2,9 +2,9 @@
 
 /**
  * space_check - check if the user input is empty after space
- * @user_input: is a string storing the command of the user
+ * @user_input: command and arguments of the user input
  *
- * Return: 1 if command is find, otherwise 0
+ * Return: 1 if command is found, 0 otherwise
  */
 int space_check(char *user_input)
 {
@@ -22,7 +22,7 @@ int space_check(char *user_input)
 
 /**
  * handle_user_command - parses an executes user's input command
- * @use_input: command and arguments input by the user
+ * @use_input: command and arguments of the user input
  * @read: number of characters of the user input (counted by getline())
  * @cpy_env: shell's environment variables
  * @is_interactive: 1 is interactive, 0 is not
@@ -44,7 +44,8 @@ int handle_user_command(char *use_input, int read,
 	/* Check empty command_input */
 	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
 	{
-		tokens = tokenize(use_input);	/* Transforms user cmd into arg for execve */
+		/* Transforms user cmd into arg for execve */
+		tokens = tokenize(use_input);
 
 		/* Built-in command check */
 		if (check_and_run_builtin(use_input, tokens, *child_status) == 0)
