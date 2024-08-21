@@ -21,17 +21,6 @@ int space_check(char *user_input)
 }
 
 /**
- * error_handling - prints error message and exits shell
- * @msg: to display when an error occurs
- * @exit_code: 0 if success, something else (to define) if failure
- */
-void error_handling(char *msg, int exit_code)
-{
-	perror(msg);
-	exit(exit_code);
-}
-
-/**
  * check_and_run_builtin - call built-in functions if it's one
  * @user_input: user input with the possible built-in
  * @tokens: tokenized user input
