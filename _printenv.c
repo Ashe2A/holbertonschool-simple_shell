@@ -15,7 +15,7 @@ void _printenv(char *user_input __attribute__((unused)),
 	int child_status __attribute__((unused)))
 {
 	int i = 0;
-
+	
 	while (environ[i])
 	{
 		printf("%s\n", environ[i]);
