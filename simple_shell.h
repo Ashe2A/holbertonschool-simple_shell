@@ -37,7 +37,7 @@ typedef struct dir_s
 typedef struct built_in_s
 {
 	char *cmd;
-	void (*f)(char *, char **);
+	void (*f)(char *, char **, int);
 } built_in_t;
 
 /************************* FUNCTIONS *************************/
@@ -47,7 +47,7 @@ void handle_eof_cleanup(int, char *, int);
 int handle_user_command(char *, int, char **, int, char **, int*);
 
 /* handle_user_command */
-int check_and_run_builtin(char *, char **);
+int check_and_run_builtin(char *, char **, int);
 char **tokenize(char *);
 char *path_parse(char *, char *);
 pid_t fork_and_check(char **, char *, pid_t *, char *);
@@ -61,8 +61,8 @@ dir_t *create_node_at_end(dir_t **, char *, char *, char *);
 void free_path_dir(dir_t *);
 
 /* Built-ins */
-void _printenv(char *, char **);
-void _exit_function(char *, char **);
+void _printenv(char *, char **, int);
+void _exit_function(char *, char **, int);
 
 /* Helper functions */
 void error_handling(char *, int);

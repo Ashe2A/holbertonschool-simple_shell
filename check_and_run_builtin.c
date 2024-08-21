@@ -7,10 +7,11 @@
  * containing the raw data entered by the user
  * @tokens: is an array of pointers to character strings
  * containing the command and arguments given by the user
+ * @child_status: is an integer storing the exit code of th child
  *
  * Return: 1 for built-in mode, 0 otherwise
  */
-int check_and_run_builtin(char *user_input, char **tokens)
+int check_and_run_builtin(char *user_input, char **tokens, int child_status)
 {
 	/* The structure storing the command and its built-in function */
 	built_in_t built_in_list[] = {
@@ -25,7 +26,7 @@ int check_and_run_builtin(char *user_input, char **tokens)
 	{
 		if (strcmp(tokens[0], built_in_list[i].cmd) == 0)
 		{
-			built_in_list[i].f(user_input, tokens);
+			built_in_list[i].f(user_input, tokens, child_status);
 			/* Built-in mode on */
 			return (EXIT_FAILURE);
 		}

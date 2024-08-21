@@ -27,7 +27,7 @@ char **cpy_env, int is_interactive, char **av, int *child_status)
 		tokens = tokenize(use_input);	/* Transforms user cmd into arg for execve */
 
 		/* Built-in command check */
-		if (check_and_run_builtin(use_input, tokens) == 0)
+		if (check_and_run_builtin(use_input, tokens, *child_status) == 0)
 		{	/* Cmd is entered with its path or alone */
 			is_f_path = access(tokens[0], X_OK);
 			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
