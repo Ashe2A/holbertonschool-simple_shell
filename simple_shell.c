@@ -30,7 +30,7 @@ int initialize_mode_and_prompt(void)
 
 /**
  * handle_eof_cleanup - to handle end of file (Ctrl + D)
- * @read: number of characters of the user input (counted by getline)
+ * @read: number of characters of the user input (counted by getline())
  * @user_input: user's input to free upon exiting
  * @child_status: is in an integer storing the return value of a child
  */
@@ -60,9 +60,9 @@ void handle_eof_cleanup(int read, char *user_input, int child_status)
 int main(int argc __attribute__((unused)), char **argv)
 {
 	int is_interactive = 0; /* 1 is interactive, 0 (default) is not */
-	int bytes_read = 0; /* number of bytes read by getline */
+	int bytes_read = 0; /* number of characters of the user input (counted by getline()) */
 	char *user_input = NULL; /* Buffer to store user input */
-	size_t n = 0; /* number of bytes allocated to the user input by getline */
+	size_t n = 0; /* memory allocation for getline() length */
 	int child_status = 0;
 
 	while (1) /* Infinite loop for shell */

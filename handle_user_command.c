@@ -1,24 +1,45 @@
 #include "simple_shell.h"
 
 /**
+ * space_check - check if the user input is empty after space
+ * @user_input: is a string storing the command of the user
+ *
+ * Return: 1 if command is find, otherwise 0
+ */
+int space_check(char *user_input)
+{
+	/* Traverse user's input */
+	while (*user_input == ' ')
+	{
+		/* If rhe carriage return if found, there is no command to parse */
+		if (*(user_input + 1) == '\n')
+			return (0);
+		user_input++;
+	}
+
+	return (1);
+}
+
+/**
  * handle_user_command - parses an executes user's input command
  * @use_input: command and arguments input by the user
- * @read: number of characters of the user input (counted by getline)
+ * @read: number of characters of the user input (counted by getline())
  * @cpy_env: shell's environment variables
- * @is_interactive: 1 for interactive mode and 0 for non-interactive
- * @av: is an array of pointers pointing arrays of string
- * @child_status: is the integer that return its exit status
+ * @is_interactive: 1 is interactive, 0 is not
+ * @av: the command-line's arguments
+ * @child_status: exit status of the program
  *
- * Return: the child status, 0 if no error, otherwise an other error code
+ * Return: the child's status, 0 if no error, another error code otherwise
  */
 int handle_user_command(char *use_input, int read,
-char **cpy_env, int is_interactive, char **av, int *child_status)
+	char **cpy_env, int is_interactive, char **av, int *child_status)
 {
-	char **tokens = NULL; /* Is an array of pointers to the extracted tokens */
-	int is_f_path = 1; /* 0 if user enter a command with full path */
-	char *full_path = NULL; /* is the complete path of user's input */
-	pid_t child_pid = 0;  /* is an ID of the child */
-	int status;	/* of the child used by wait() */
+	char **tokens = NULL; /* the extracted tokens */
+	/* 0 if user input is a full path command, 1 (default) if not */
+	int is_f_path = 1;
+	char *full_path = NULL; /* the complete path of the user input command */
+	pid_t child_pid = 0;  /* the child's process ID */
+	int status;	/* ... of the child returned by wait() */
 
 	/* Check empty command_input */
 	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
