@@ -21,6 +21,17 @@ int space_check(char *user_input)
 }
 
 /**
+ * error_handling - prints error message and exits shell
+ * @msg: to display when an error occurs
+ * @exit_code: 0 if success, something else (to define) if failure
+ */
+void error_handling(char *msg, int exit_code)
+{
+	perror(msg);
+	exit(exit_code);
+}
+
+/**
  * handle_user_command - parses an executes user's input command
  * @use_input: command and arguments of the user input
  * @read: number of characters of the user input (counted by getline())
@@ -52,7 +63,7 @@ int handle_user_command(char *use_input, int read,
 			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
 			if (full_path != NULL)
 			{
-				/* Create a child process */
+				/* Create child process */
 				child_pid = fork_and_check(tokens, full_path, &child_pid, use_input);
 				if (child_pid == 0)	/* In the child process */
 					execve_and_check(tokens, full_path, cpy_env, use_input);

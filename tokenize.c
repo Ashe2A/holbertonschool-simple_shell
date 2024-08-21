@@ -1,16 +1,3 @@
-#include "simple_shell.h"
-
-/**
- * error_handling - prints error message and exits shell
- * @msg: to display when an error occurs
- * @exit_code: 0 if success, something else (to define) if failure
- */
-void error_handling(char *msg, int exit_code)
-{
-	perror(msg);
-	exit(exit_code);
-}
-
 /**
  * count_tokens - Count the number of tokens
  * @token: each token

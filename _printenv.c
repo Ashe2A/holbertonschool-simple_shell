@@ -2,18 +2,16 @@
 
 /**
  * _printenv - print the environment variables
- * @user_input: unused parameter
- * @tokens: unsused parameter
- * @child_status: unsused parameter
+ * @user_input: user input (unused)
+ * @tokens: tokenized user input (unused)
+ * @child_status: exit code of the child process (unused)
  *
  * Description: This function prints all the environment variables
  * available in the current shell session. The function does not
  * return any value.
- *
- * Return: Always void
  */
 void _printenv(char *user_input __attribute__((unused)),
-char **tokens __attribute__((unused)), int child_status)
+	char **tokens __attribute__((unused)), int child_status)
 {
 	int i = 0;
 

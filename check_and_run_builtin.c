@@ -1,19 +1,16 @@
 #include "simple_shell.h"
 
 /**
- * check_and_run_builtin - call the built-in function
- * corresponding to the command if it exists.
- * @user_input: is an array of character strings
- * containing the raw data entered by the user
- * @tokens: is an array of pointers to character strings
- * containing the command and arguments given by the user
- * @child_status: is an integer storing the exit code of th child
+ * check_and_run_builtin - call built-in functions if it's one
+ * @user_input: user input with the possible built-in
+ * @tokens: tokenized user input
+ * @child_status: exit code of the child process
  *
- * Return: 1 for built-in mode, 0 otherwise
+ * Return: 1 if it's a built-in, 0 otherwise
  */
 int check_and_run_builtin(char *user_input, char **tokens, int child_status)
 {
-	/* The structure storing the command and its built-in function */
+	/* Built-in functions and their corresponding calls */
 	built_in_t built_in_list[] = {
 		{"env", _printenv},
 		{"exit", _exit_function},
@@ -21,18 +18,16 @@ int check_and_run_builtin(char *user_input, char **tokens, int child_status)
 	};
 	int i = 0;
 
-	/* Compare user's input with cmd from structure and run function if found */
+	/* Compare user input with structure commands and run if found */
 	while (built_in_list[i].cmd != NULL)
 	{
 		if (strcmp(tokens[0], built_in_list[i].cmd) == 0)
 		{
 			built_in_list[i].f(user_input, tokens, child_status);
-			/* Built-in mode on */
-			return (EXIT_FAILURE);
+			return (1); /* Built-in mode on */
 		}
 		i++;
 	}
 
-	/* Built-in mode on */
-	return (0);
+	return (0); /* Built-in mode off */
 }
