@@ -47,10 +47,9 @@ int handle_user_command(char *use_input, int read,
 {
 	char **tokens = NULL; /* the extracted tokens */
 	/* 0 if user input is a full path command, 1 (default) if not */
-	int is_f_path = 1;
+	int status, is_f_path = 1; /* + status of the child returned by wait() */
 	char *full_path = NULL; /* the complete path of the user input command */
 	pid_t child_pid = 0;  /* the child's process ID */
-	int status;	/* ... of the child returned by wait() */
 
 	/* Check empty command_input */
 	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
