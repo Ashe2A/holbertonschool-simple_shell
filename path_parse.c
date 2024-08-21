@@ -61,14 +61,14 @@ void free_path_dir(dir_t *head)
 }
 
 /**
- * path_parse - builds and compares the path file
- * @command: is a character string containing the command to be checked
- * @user_input: the user's input
+ * path_parse - builds and compares the path file with the command's
+ * @command: the command to be checked
+ * @user_input: user input (command + args)
  *
  * Description: The builded pathfile is compared with the value
  * of the PATH environment variable. It checks whether the file exists
  *
- * Return: the full filepath or NULL if it not exists
+ * Return: full path of the commands' file or NULL if not found
  */
 char *path_parse(char *command, char *user_input)
 {

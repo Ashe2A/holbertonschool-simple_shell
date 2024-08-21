@@ -32,6 +32,58 @@ void error_handling(char *msg, int exit_code)
 }
 
 /**
+ * check_and_run_builtin - call built-in functions if it's one
+ * @user_input: user input with the possible built-in
+ * @tokens: tokenized user input
+ * @child_status: exit code of the child process
+ *
+ * Return: 1 if it's a built-in, 0 otherwise
+ */
+int check_and_run_builtin(char *user_input, char **tokens, int child_status)
+{
+	/* Built-in functions and their corresponding calls */
+	built_in_t built_in_list[] = {
+		{"env", _printenv},
+		{"exit", _exit_function},
+		{NULL, NULL}
+	};
+	int i = 0;
+
+	/* Compare user input with structure commands and run if found */
+	while (built_in_list[i].cmd != NULL)
+	{
+		if (strcmp(tokens[0], built_in_list[i].cmd) == 0)
+		{
+			built_in_list[i].f(user_input, tokens, child_status);
+			return (1); /* Built-in mode on */
+		}
+		i++;
+	}
+
+	return (0); /* Built-in mode off */
+}
+
+/**
+ * cleanup_tokens_and_path - frees allocated memory from tokens and full_path
+ * @tokens: to free
+ * @full_path: to free
+ *
+ * Return: Always nothing
+ */
+void cleanup_tokens_and_path(char **tokens, char *full_path)
+{
+	/* Defensive programming */
+	if (full_path != NULL)
+	{
+		free(full_path);
+		full_path = NULL;
+	}
+
+	/* Call functions to free tokens */
+	free_tokens(tokens);
+}
+
+/**
  * handle_user_command - parses an executes user's input command
  * @use_input: command and arguments of the user input
  * @read: number of characters of the user input (counted by getline())

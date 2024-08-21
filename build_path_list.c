@@ -1,20 +1,18 @@
 #include "simple_shell.h"
 
 /**
- * create_node_at_end - creates a node
- * and appends it to the end of a linked list
- * @head: A pointer to the pointer of the first node in the linked list
- * @name: is a string containing the name of the environment variable
- * @value: is the value of the variable
- * @user_input: is a character string containing the raw input
+ * create_node_at_end - appends a node to the end of a linked list
+ * @head: linked list
+ * @name: name of the environment variable
+ * @value: value of the environment variable
+ * @user_input: raw user input
  *
  * Description: The function creates a new node by allocating memory to it.
  * It copies the values of name and value into its structure.
  * The node is placed at the end of the list. next points to NULL.
  * It returns the new node. If memory allocation fails, NULL is returned.
  *
- * Return: A pointer to the newly created node, or NULL if memory allocation
- * fails
+ * Return: the newly created node, or NULL if malloc fails
  */
 dir_t *create_node_at_end(dir_t **head, char *name, char *value,
 				char *user_input)
@@ -23,7 +21,7 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value,
 
 	/* Allocate memory ti the new node */
 	new_node = malloc(sizeof(dir_t));
-	if (new_node == NULL)	/* Malloc check */
+	if (new_node == NULL) /* Malloc check */
 	{
 		free(user_input);
 		free_path_dir(*head);
@@ -62,12 +60,11 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value,
 /**
  * build_path_list - gets, slices and stores
  * the value of the environment variable in a linked list
- * @head: is a pointer to the start of a linked list
- * @name: is a character string containing
- * the name of an environment variable
- * @user_input: is a character string containing the raw input of the user
+ * @head: head of the linked list
+ * @name: name of the environment variable
+ * @user_input: raw user input
  *
- * Return: the head of the constructed linked list
+ * Return: the head of the built linked list
  * or NULL if the PATH is not specified
  */
 dir_t *build_path_list(dir_t **head, char *name, char *user_input)
