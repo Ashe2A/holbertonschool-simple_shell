@@ -47,7 +47,7 @@ int handle_user_command(char *use_input, int read,
 {
 	char **tokens = NULL; /* the extracted tokens */
 	/* 0 if user input is a full path command, 1 (default) if not */
-	int status, is_f_path = 1; /* + status of the child returned by wait() */
+	int status = 0, is_f_path = 1; /* + status of the child returned by wait() */
 	char *full_path = NULL; /* the complete path of the user input command */
 	pid_t child_pid = 0;  /* the child's process ID */
 
