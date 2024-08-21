@@ -13,8 +13,9 @@
 void _printenv(char *user_input __attribute__((unused)),
 	char **tokens __attribute__((unused)), int child_status)
 {
-	(void)child_status; /* unused argument */
 	int i = 0;
+
+	(void)child_status; /* unused argument */
 
 	while (environ[i])
 	{
