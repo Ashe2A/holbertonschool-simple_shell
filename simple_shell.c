@@ -13,7 +13,7 @@ int initialize_mode_and_prompt(void)
 	int mode = 0; /* 1 is interactive, 0 (default) is not */
 
 	/* Check whether the command is being executed by another terminal */
-	if (isatty(stdin))
+	if (isatty(0))
 	{
 		mode = 1;	/* Switch to interactive */
 
