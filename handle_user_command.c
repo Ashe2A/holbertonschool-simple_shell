@@ -44,12 +44,11 @@ int handle_user_command(char *use_input, int read,
 	/* Check empty command_input */
 	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
 	{
-		/* Transforms user cmd into arg for execve */
-		tokens = tokenize(use_input);
+		tokens = tokenize(use_input); /* Transforms user cmd into arg for execve */
 		/* Built-in command check */
 		if (check_and_run_builtin(use_input, tokens, *child_status) == 0)
-		{	/* Cmd is entered with its path or alone */
-			is_f_path = access(tokens[0], X_OK);
+		{
+			is_f_path = access(tokens[0], X_OK); /* checks if command is with path */
 			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
 			if (full_path != NULL)
 			{
@@ -57,7 +56,7 @@ int handle_user_command(char *use_input, int read,
 				child_pid = fork_and_check(tokens, full_path, &child_pid, use_input);
 				if (child_pid == 0)	/* In the child process */
 					execve_and_check(tokens, full_path, cpy_env, use_input);
-				else	/* in the parent process */
+				else /* in the parent process */
 					waitpid(child_pid, &status, 0);
 			}
 			else
