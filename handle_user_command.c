@@ -46,7 +46,6 @@ int handle_user_command(char *use_input, int read,
 	{
 		/* Transforms user cmd into arg for execve */
 		tokens = tokenize(use_input);
-
 		/* Built-in command check */
 		if (check_and_run_builtin(use_input, tokens, *child_status) == 0)
 		{	/* Cmd is entered with its path or alone */
@@ -68,12 +67,11 @@ int handle_user_command(char *use_input, int read,
 	}
 	/* Free all allocated memory */
 	reset_ressources(tokens, full_path, is_f_path, use_input, read);
-
 	if (WIFEXITED(status) != 0)	/* Child encountered an error ? */
 	{
 		*child_status = WEXITSTATUS(status);
 		return (*child_status);	/* Return error code */
 	}
-	child_status = 0; /* If no child doesn' t return error, reset to 0  */
+	child_status = 0; /* If no child doesn' t return error, reset to 0 */
 	return (0);	/* No error encountered by the child */
 }
