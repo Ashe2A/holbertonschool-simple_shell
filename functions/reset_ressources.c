@@ -4,19 +4,14 @@
  * reset_ressources - frees memory if necessary
  * @tokens: to free
  * @full_path: to free
- * @is_full_path: indicates whether the user has entered the command
- * with its access path.
- * @user_input: is the source input entered by the user
- * @read: is the number of character read in the user input
- * by the system call getline
- *
- * Return: Always nothing
+ * @is_full_path: 1 if user input has command (stored a linked list), 0 if not
+ * @user_input: raw source user input
+ * @read: number of characters of the user input (counted by getline())
  */
 void reset_ressources(char **tokens, char *full_path, int is_full_path,
 	char *user_input, int read)
 {
-
-	if (user_input[0] != '\n' && read != 1)
+	if ((user_input[0] != '\n') && (read != 1))
 	{
 		/* Edge case: if the user input a full path command */
 		if (is_full_path == 0)

@@ -64,23 +64,28 @@ int check_and_run_builtin(char *user_input, char **tokens, int child_status)
 }
 
 /**
- * cleanup_tokens_and_path - frees allocated memory from tokens and full_path
+ * handle_command_not_found - prints error message if the command is not found
+ * @is_interactive: 1 for interactive mode and 0 for non-interactive
+ * @av: the command-line's arguments (tokens ?)
  * @tokens: to free
- * @full_path: to free
+ * @user_input: to free
  *
- * Return: Always nothing
+ * Description: the error messages are differents,
+ * if the shell is in interactive or non-interactive mode
  */
-void cleanup_tokens_and_path(char **tokens, char *full_path)
+void handle_command_not_found(int is_interactive, char **av,
+	char **tokens, char *user_input)
 {
-	/* Defensive programming */
-	if (full_path != NULL)
+	if (is_interactive == 0)
 	{
-		free(full_path);
-		full_path = NULL;
+		fprintf(stderr, "%s: %d: %s: not found\n", av[0], EXIT_FAILURE, tokens[0]);
+		/* Free after printing the message error */
+		free(user_input);
+		free_tokens(tokens);
+		exit(127);
 	}
-
-	/* Call functions to free tokens */
-	free_tokens(tokens);
+	else
+		perror(av[0]);
 }
 
 /**
@@ -99,26 +104,28 @@ int handle_user_command(char *use_input, int read,
 {
 	char **tokens = NULL; /* the extracted tokens */
 	/* 0 if user input is a full path command, 1 (default) if not */
-	int status = 0, is_f_path = 1; /* + status of the child returned by wait() */
+	int status = 0, is_f_path = 1; /* + status of the child written by waitpid() */
 	char *full_path = NULL; /* the complete path of the user input command */
 	pid_t child_pid = 0;  /* the child's process ID */
 
 	/* Check empty command_input */
-	if ((use_input[0] != '\n' && read != 1) && space_check(use_input) != 0)
+	if ((use_input[0] != '\n' && read != 1) && (space_check(use_input) != 0))
 	{
 		tokens = tokenize(use_input); /* Transforms user cmd into arg for execve */
 		/* Built-in command check */
 		if (check_and_run_builtin(use_input, tokens, *child_status) == 0)
 		{
 			is_f_path = access(tokens[0], X_OK); /* checks if command is with path */
-			full_path = (is_f_path == 0) ? tokens[0] : path_parse(tokens[0], use_input);
-			if (full_path != NULL)
+			if (is_f_path == 0)
+				full_path = tokens[0]; /* if command has path */
+			else
+				full_path = path_parse(tokens[0], use_input); /* if not search for path */
+			if (full_path != NULL) /* If path exists, create child process */
 			{
-				/* Create child process */
 				child_pid = fork_and_check(tokens, full_path, &child_pid, use_input);
 				if (child_pid == 0)	/* In the child process */
 					execve_and_check(tokens, full_path, cpy_env, use_input);
-				else /* in the parent process */
+				else /* In another (mostly parent) process */
 					waitpid(child_pid, &status, 0);
 			}
 			else

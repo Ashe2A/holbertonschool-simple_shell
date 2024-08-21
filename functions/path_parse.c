@@ -15,22 +15,22 @@ char *_getenv(const char *name)
 	size_t name_len = 0;
 	int i = 0;
 
-	if (name == NULL || environ == NULL)
-		return (NULL);
-
-	/* Compute the length of name */
-	name_len = strlen(name);
-
-	/* Traverse the array */
-	while (environ[i] != NULL)
+	if ((name != NULL) && (environ != NULL))
 	{
-		/* Compares name and its length with that of the variable */
-		/* Make sure that the name really ends in the same place */
-		if ((strncmp(name, environ[i], name_len) == 0)
-		&& ((environ[i])[name_len] == '='))
+		/* Compute the length of name */
+		name_len = strlen(name);
+
+		/* Traverse the array */
+		while (environ[i] != NULL)
+		{
+			/* Compares name and its length with that of the variable */
+			/* Make sure that the name really ends in the same place */
+			if ((strncmp(name, environ[i], name_len) == 0)
+				&& ((environ[i])[name_len] == '='))
 			/* Return a pointer the '=' character */
-			return (environ[i] + name_len + 1);
-		i++;
+				return (environ[i] + name_len + 1);
+			i++;
+		}
 	}
 	return (NULL);
 }
@@ -77,39 +77,38 @@ char *path_parse(char *command, char *user_input)
 	int path_length = 0;
 	char *env_var = "PATH";	/* Stores the path of executables */
 
-	if (_getenv(env_var) == NULL) /* Don't execute if no PATH */
-		return (NULL);
-	/*** malloc ***/
-	head = build_path_list(&head, env_var, user_input);
-	curr_node = head;
-
-	while (curr_node != NULL)
+	if (_getenv(env_var) != NULL) /* Don't execute if no PATH */
 	{
-		path_length = strlen(curr_node->path) + strlen(command);
+		/*** malloc ***/
+		head = build_path_list(&head, env_var, user_input);
+		curr_node = head;
 
-		full_path = malloc(sizeof(char) * (path_length + 2));
-		if (full_path == NULL)
+		while (curr_node != NULL)
 		{
-			free(user_input);
-			free_path_dir(head);
-			error_handling("malloc", EXIT_FAILURE);
+			path_length = strlen(curr_node->path) + strlen(command);
+
+			full_path = malloc(sizeof(char) * (path_length + 2));
+			if (full_path == NULL)
+			{
+				free(user_input);
+				free_path_dir(head);
+				error_handling("malloc", EXIT_FAILURE);
+			}
+			strcpy(full_path, curr_node->path);
+			strcat(full_path, "/");
+			strcat(full_path, command);
+
+			if (access(full_path, X_OK) == 0)
+			{
+				free_path_dir(head);
+				return (full_path);
+			}
+			free(full_path);
+			full_path = NULL;
+			curr_node = curr_node->next;
 		}
 
-		strcpy(full_path, curr_node->path);
-		strcat(full_path, "/");
-		strcat(full_path, command);
-
-		if (access(full_path, X_OK) == 0)
-		{
-			free_path_dir(head);
-			return (full_path);
-		}
-		free(full_path);
-		full_path = NULL;
-		curr_node = curr_node->next;
+		free_path_dir(head);
 	}
-
-	free_path_dir(head);
-
-	return (NULL); /* If path is not found */
+	return (NULL);
 }

@@ -19,42 +19,41 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value,
 {
 	dir_t *new_node = NULL, *curr_node = NULL;
 
-	/* Allocate memory ti the new node */
+	/* Allocate memory to the new node */
 	new_node = malloc(sizeof(dir_t));
-	if (new_node == NULL) /* Malloc check */
+	if (new_node != NULL) /* Malloc check */
 	{
-		free(user_input);
-		free_path_dir(*head);
-		error_handling("malloc", EXIT_FAILURE);
-	}
+		/* Copy the strings name and value */
+		new_node->name = strdup(name);
+		new_node->path = strdup(value);
+		/* strdup check */
+		if ((new_node->name != NULL) && (new_node->path != NULL))
+		{
+			/* Set the pointer next to NULL. The node is the last */
+			new_node->next = NULL;
 
-	/* Copy the strings name and value */
-	new_node->name = strdup(name);
-	new_node->path = strdup(value);
-	/* strdup check */
-	if (new_node->name == NULL || new_node->path == NULL)
-	{
+			/* If the list does not exist */
+			if (*head != NULL)
+			{
+				/* We use the search node to access the last node */
+				curr_node = *head;
+				while (curr_node->next != NULL)
+					curr_node = curr_node->next;
+
+				/* The new node takes the place of last */
+				curr_node->next = new_node;
+			}
+			else
+				*head = new_node; /* The new node becomes the head */
+			return (new_node);	
+		}
 		free(user_input);
 		free_path_dir(*head);
 		error_handling("strdup", EXIT_FAILURE);
 	}
-	/* Set the pointer next to NULL. The node is the last */
-	new_node->next = NULL;
-
-	/* If the list does not exist */
-	if (*head == NULL)
-		*head = new_node;	/* The new node becomes the head */
-	else
-	{
-		/* We use the search node to access the last node */
-		curr_node = *head;
-		while (curr_node->next != NULL)
-			curr_node = curr_node->next;
-
-		/* The new node takes the place of last */
-		curr_node->next = new_node;
-	}
-	return (new_node);
+	free(user_input);
+	free_path_dir(*head);
+	error_handling("malloc", EXIT_FAILURE);
 }
 
 /**
@@ -74,29 +73,29 @@ dir_t *build_path_list(dir_t **head, char *name, char *user_input)
 	/* Stores the value of the requested environment variable */
 	char *path_pathes;
 
-	if (name == NULL)
-		return (NULL);
-
-	/* Create a copy so as not to destroy the original */
-	path_pathes = _getenv(name);
-	cpy_path_pathes = strdup(path_pathes);
-	if (cpy_path_pathes == NULL)
+	if (name != NULL)
 	{
+		/* Create a copy so as not to destroy the original */
+		path_pathes = _getenv(name);
+		cpy_path_pathes = strdup(path_pathes);
+		if (cpy_path_pathes != NULL)
+		{
+			/* Tokenises file paths and stores them in a linked list */
+			token = strtok(cpy_path_pathes, ":");
+			while (token)
+			{
+				/* Create a new node and store path in it */
+				create_node_at_end(head, name, token, user_input);
+				token = strtok(NULL, ":");
+			}
+
+			/* Cleanses the memory */
+			free(cpy_path_pathes);
+
+			return (*head);
+		}
 		free(user_input);
 		error_handling("strdup", EXIT_FAILURE);
 	}
-
-	/* Tokenises file paths and stores them in a linked list */
-	token = strtok(cpy_path_pathes, ":");
-	while (token)
-	{
-		/* Create a new node and store path in it */
-		create_node_at_end(head, name, token, user_input);
-		token = strtok(NULL, ":");
-	}
-
-	/* Cleanses the memory */
-	free(cpy_path_pathes);
-
-	return (*head);
+	return (NULL);
 }

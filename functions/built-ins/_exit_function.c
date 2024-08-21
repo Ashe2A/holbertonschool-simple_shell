@@ -8,7 +8,7 @@
  */
 void _exit_function(char *user_input, char **tokens, int child_status)
 {
-	if (user_input != NULL && tokens != NULL)
+	if ((user_input != NULL) && (tokens != NULL))
 	{
 		free(user_input);
 		user_input = NULL;

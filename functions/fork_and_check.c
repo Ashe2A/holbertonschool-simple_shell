@@ -1,7 +1,7 @@
 #include "simple_shell.h"
 
 /**
- * fork_and_check - creates and checks a child process
+ * fork_and_check - checks and ultimately creates a child process
  * @tokens: tokenized user input to free if fork fails
  * @full_path: of the command to free if fork fails 
  * @child_pid: process ID of the command process

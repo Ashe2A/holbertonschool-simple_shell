@@ -39,36 +39,35 @@ char *delim, int count)
 
 	/* Allocate memory for tokens + 1 to NULL terminate the array */
 	tokens = malloc(sizeof(char *) * (count + 1));
-	if (tokens == NULL)
+	if (tokens != NULL)
 	{
-		free(ui);
-		ui = NULL;
-		error_handling("malloc", EXIT_FAILURE);
-	}
-
-	/* Tokenize user input */
-	token = strtok(ui, delim);
-	while (token)
-	{
-		tokens[i] = strdup(token);
-		if (tokens[i] == NULL)
+		/* Tokenize user input */
+		token = strtok(ui, delim);
+		while (token)
 		{
-			while (tokens[i])
-				free(tokens[--i]);
-			free(tokens);
-			tokens = NULL;
-			free(ui);
-			ui = NULL;
-			error_handling("strdup", EXIT_FAILURE);
+			tokens[i] = strdup(token);
+			if (tokens[i] == NULL)
+			{
+				while (tokens[i])
+					free(tokens[--i]);
+				free(tokens);
+				tokens = NULL;
+				free(ui);
+				ui = NULL;
+				error_handling("strdup", EXIT_FAILURE);
+			}
+			token = strtok(NULL, delim);
+			i++;
 		}
-		token = strtok(NULL, delim);
-		i++;
+
+		/* Null terminate the array of pointer */
+		tokens[i] = NULL;
+
+		return (tokens);
 	}
-
-	/* Null terminate the array of pointer */
-	tokens[i] = NULL;
-
-	return (tokens);
+	free(ui);
+	ui = NULL;
+	error_handling("malloc", EXIT_FAILURE);
 }
 
 /**
@@ -87,20 +86,19 @@ char **tokenize(char *user_input)
 
 	/* Copy user input and handle errors */
 	cp_input = strdup(user_input);
-	if (cp_input == NULL)
+	if (cp_input != NULL)
 	{
-		free(user_input);
-		user_input = NULL;
-		error_handling("strdup", EXIT_FAILURE);
+		/* Count the number of tokens */
+		token_count = count_tokens(token, cp_input, delimiter);
+
+		/* Free the copy */
+		free(cp_input);
+		cp_input = NULL;
+		tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
+
+		return (tokens);
 	}
-
-	/* Count the number of tokens */
-	token_count = count_tokens(token, cp_input, delimiter);
-
-	/* Free the copy */
-	free(cp_input);
-	cp_input = NULL;
-	tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
-
-	return (tokens);
+	free(user_input);
+	user_input = NULL;
+	error_handling("strdup", EXIT_FAILURE);
 }
