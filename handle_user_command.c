@@ -53,5 +53,6 @@ char **cpy_env, int is_interactive, char **av, int *child_status)
 		*child_status = WEXITSTATUS(status);
 		return (*child_status);	/* Return error code */
 	}
+	child_status = 0; /* If no child doesn' t return error, reset to 0  */
 	return (0);	/* No error encountered by the child */
 }
