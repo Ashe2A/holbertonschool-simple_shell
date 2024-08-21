@@ -13,7 +13,7 @@
  * Return: Always nothing
  */
 void reset_ressources(char **tokens, char *full_path, int is_full_path,
-						char *user_input, int read)
+	char *user_input, int read)
 {
 
 	if (user_input[0] != '\n' && read != 1)

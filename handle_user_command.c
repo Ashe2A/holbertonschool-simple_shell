@@ -2,10 +2,9 @@
 
 /**
  * handle_user_command - parses an executes user's input command
- * @use_input: is a string. that stores the command given by the user
- * @read: is an integer that stores the number of bytes read by getline()
- * @cpy_env: is double array that contains
- * all environment variable of the shell
+ * @use_input: command and arguments input by the user
+ * @read: number of characters of the user input (counted by getline)
+ * @cpy_env: shell's environment variables
  * @is_interactive: 1 for interactive mode and 0 for non-interactive
  * @av: is an array of pointers pointing arrays of string
  * @child_status: is the integer that return its exit status
