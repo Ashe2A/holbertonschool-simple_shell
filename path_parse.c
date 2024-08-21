@@ -28,7 +28,7 @@ char *_getenv(const char *name)
 		/* Make sure that the name really ends in the same place */
 		if ((strncmp(name, environ[0], name_len) == 0) && (environ[i][name_len] == '='))
 			/* Return a pointer the '=' character */
-			return (environ[i] + name_len);
+			return (environ[i] + name_len + 1);
 		i++;
 	}
 	return (NULL);
