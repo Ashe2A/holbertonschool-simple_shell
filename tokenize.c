@@ -1,3 +1,5 @@
+#include "simple_shell.h"
+
 /**
  * count_tokens - Count the number of tokens
  * @token: each token
