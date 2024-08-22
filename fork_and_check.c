@@ -3,7 +3,7 @@
 /**
  * fork_and_check - checks and ultimately creates a child process
  * @tokens: tokenized user input to free if fork fails
- * @full_path: of the command to free if fork fails 
+ * @full_path: of the command to free if fork fails
  * @child_pid: process ID of the command process
  * @user_input: raw data entered by the user
  *

@@ -45,7 +45,7 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value,
 			}
 			else
 				*head = new_node; /* The new node becomes the head */
-			return (new_node);	
+			return (new_node);
 		}
 		free(user_input);
 		free_path_dir(*head);

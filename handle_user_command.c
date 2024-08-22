@@ -21,6 +21,17 @@ int space_check(char *user_input)
 }
 
 /**
+ * error_handling - prints error message and exits shell
+ * @msg: to display when an error occurs
+ * @exit_code: 0 if success, something else (to define) if failure
+ */
+void error_handling(char *msg, int exit_code)
+{
+	perror(msg);
+	exit(exit_code);
+}
+
+/**
  * check_and_run_builtin - call built-in functions if it's one
  * @user_input: user input with the possible built-in
  * @tokens: tokenized user input
@@ -93,7 +104,7 @@ int handle_user_command(char *use_input, int read,
 {
 	char **tokens = NULL; /* the extracted tokens */
 	/* 0 if user input is a full path command, 1 (default) if not */
-	int status = 0, is_f_path = 1; /* + status of the child written by waitpid() */
+	int status = 0, is_f_path = 1; /* status of the child written by waitpid() */
 	char *full_path = NULL; /* the complete path of the user input command */
 	pid_t child_pid = 0;  /* the child's process ID */
 
