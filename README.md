@@ -53,7 +53,7 @@ flowchart
     fork_check -- false --> wait("Wait for children processes' end<br>wait(&status)")
     full_path_check -- false --> build_path("Search for PATH")
     build_path --> fork
-    execve --> reset_ressources("Reset ressources<br>(free())")
+    wait --> reset_ressources("Reset ressources<br>(free())")
     reset_ressources --> interact
 
     style start stroke:#FC0,fill:#FFD,color:#A80
