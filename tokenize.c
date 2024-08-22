@@ -86,17 +86,19 @@ char **tokenize(char *user_input)
 
 	/* Copy user input and handle errors */
 	cp_input = strdup(user_input);
-	if (cp_input != NULL)
+	if (cp_input == NULL)
 	{
-		/* Count the number of tokens */
-		token_count = count_tokens(token, cp_input, delimiter);
-
-		/* Free the copy */
-		free(cp_input);
-		cp_input = NULL;
-		tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
-
-		return (tokens);
+		free(user_input);
+		user_input = NULL;
+		error_handling("strdup", EXIT_FAILURE);
 	}
+	/* Count the number of tokens */
+	token_count = count_tokens(token, cp_input, delimiter);
 
+	/* Free the copy */
+	free(cp_input);
+	cp_input = NULL;
+	tokens = tokenize_input(user_input, tokens, token, delimiter, token_count);
+
+	return (tokens);
 }
