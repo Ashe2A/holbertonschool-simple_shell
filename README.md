@@ -46,7 +46,7 @@ flowchart
     F --> G{"Built-in?<br>(env, exit)"}
     G -- false --> I{"Full path?"}
     G -- true --> H("Run built-in")
-    H --> B
+    H --> M
     I -- true --> J("fork()")
     J --> L("Execute environment variable<br>(execve())")
     I -- false --> K("Search for PATH")
