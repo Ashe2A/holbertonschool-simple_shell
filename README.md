@@ -35,4 +35,36 @@ You might want to check the environment variables and their content. To do so, s
 ## 3. Close simple shell (simple shell ver. 0.4)
 To close the simple shell, simply type the ```exit``` command as-is. It will elways return 0 (SUCCESS).
 
-![image](https://github.com/user-attachments/assets/5cf12a8d-1067-40d3-8a60-8b9632f03303)
+```mermaid
+    A(["Start<br>(main())"]) --> B{"Interactive?"}
+    B -- true --> C("Print prompt<br>(current/path/$ )")
+    C --> D("Read user input<br>(getline())")
+    B -- false --> D
+    D -- EOF (Ctrl + D) --> E(["Exit<br>(exit())"])
+    D --> F("Tokenize input")
+    F --> G{"Built-in?<br>(env, exit)"}
+    G -- false --> I{"Full path?"}
+    G -- true --> H("Run built-in")
+    H --> B
+    I -- true --> J("fork()")
+    J --> L("Execute environment variable<br>(execve())")
+    I -- false --> K("Search for PATH")
+    K --> J
+    L --> M("Reset ressources<br>(free())")
+    M --> B
+    style A stroke:#FC0,fill:#FFD,color:#A80
+    style E stroke:#FC0,fill:#FFD,color:#A80
+
+    style B stroke:#C0F,fill:#ECF,color:#80A
+    style G stroke:#C0F,fill:#ECF,color:#80A
+    style I stroke:#C0F,fill:#ECF,color:#80A
+
+    style C stroke:#0CF,fill:#CEF,color:#08A
+    style D stroke:#0CF,fill:#CEF,color:#08A
+    style F stroke:#0CF,fill:#CEF,color:#08A
+    style H stroke:#0CF,fill:#CEF,color:#08A
+    style J stroke:#0CF,fill:#CEF,color:#08A
+    style K stroke:#0CF,fill:#CEF,color:#08A
+    style L stroke:#0CF,fill:#CEF,color:#08A
+    style M stroke:#0CF,fill:#CEF,color:#08A
+```
