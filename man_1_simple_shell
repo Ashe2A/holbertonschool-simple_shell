@@ -1,67 +1,69 @@
-.TH _SIMPLE_SHELL "21 août 2024" "1.0" "simple_shell man page"
+.TH SIMPLE_SHELL "21 août 2024" "1.0" "simple_shell man page"
 
 .SH NAME
-simple_shell - a simpler version of a Linux shell
+simple_shell \- a simpler version of a Linux shell
 
 .SH AUTHORS
 This man page was created by Achraf Jeddi and Johan Villard.
 
 .SH SYNOPSIS
-./simple_shell
+.B ./simple_shell
 
 .SH DESCRIPTION
+simple_shell is a command language interpreter that executes commands read from the standard input or from a file. It is an executable that forks the current Linux shell process, hence inheriting and using the same environment variables and commands. Commands run programs directly in the shell or come from the /usr/bin/ directory.
 
-simple_shell is an executable that forks the current Linux shell process,
-hence inheriting and using the same environment variables, and commands.
-The commands uses the commands directly from the /usr/bin/ directory.
+simple_shell can operate in two modes:
+
+.PP
+.TP
+1. \fBInteractive Mode\fR: In this mode, the shell reads commands from the user in real-time, providing a prompt for input, executing the command, and then returning to the prompt to wait for the next command.
+
+.TP
+2. \fBNon-Interactive Mode\fR: In this mode, the shell reads commands from a file or a pipeline and executes them sequentially without user interaction. This mode is particularly useful for scripting and automation tasks.
 
 .SH EXAMPLES
 The following examples demonstrate the usage of simple_shell:
 
-root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+Example 1:
+.nf
+.B root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ echo "echo works on the simple shell"
 echo works on the simple shell
 /root/holbertonschool-simple_shell$
+.fi
+The simple shell uses the echo command located in the /usr/bin/ directory to mimic echo just like in the parent shell, which takes the input and turns it into an output. It then loops to wait for another command.
 
-Example 1: The simple shell uses the echo command located in the /usr/bin/ directory
-to mimic echo just like in the parent shell, which takes the input
-and turns it into an output. It then loops to wait for another command.
-
-root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+Example 2:
+.nf
+.B root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ ls /
 1    boot  etc   lib    lib64   media  opt   root  sbin  sys  usr
 bin  dev   home  lib32  libx32  mnt    proc  run   srv   tmp  var
 /root/holbertonschool-simple_shell$
+.fi
+The simple shell uses the ls command located in the /usr/bin/ directory to mimic ls just like in the parent shell, which outputs the list of files and directories contained in the actual root directory with their details, including hidden files and directories. It then loops to wait for another command.
 
-Example 2: The simple shell uses the ls command located in the /usr/bin/ directory
-to mimic ls just like in the parent shell, which outputs the list of files
-and directories contained in the actual root directory with their details,
-including hidden files and directories.
-It then loops to wait for another command.
-
-root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+Example 3:
+.nf
+.B root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ which cat
 /usr/bin/cat
 /root/holbertonschool-simple_shell$
+.fi
+The simple shell uses the cat command located in the /usr/bin/ directory to mimic the which command, locating the binary corresponding to the command name passed in arguments. It then loops to wait for another command.
 
-Example 3: The simple shell uses the cat command located in the /usr/bin/ directory
-to mimic the which command, locating the binary corresponding
-to the command name passed in arguments.
-It then loops to wait for another command.
-
-root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+Example 4:
+.nf
+.B root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ clear
 /root/holbertonschool-simple_shell$
+.fi
+The simple shell uses the clear command located in the /usr/bin/ directory to mimic the clear command, which recolors the terminal entirely in black and puts the prompt line back to the top. However, due to the nature of the window coloring, the command uses the TERM environment variable. It then loops to wait for another command.
 
-Example 4: The simple shell uses the clear command located in the /usr/bin/ directory
-to mimic the clear command, which recolors the terminal entirely in black
-and puts the prompt line back to the top. However, due to the nature of
-the window coloring, the command uses the TERM environment variable.
-It then loops to wait for another command.
-
-root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
+Example 5:
+.nf
+.B root@ubuntu:~/holbertonschool-simple_shell$ ./simple_shell
 /root/holbertonschool-simple_shell$ exit
 root@ubuntu:~/holbertonschool-simple_shell$
-
-Example 5: The built-in exit allows the user to exit
-the simple shell without using a sigint.
+.fi
+The built-in exit allows the user to exit the simple shell without using a sigint.
