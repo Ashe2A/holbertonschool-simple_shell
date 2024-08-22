@@ -21,39 +21,39 @@ dir_t *create_node_at_end(dir_t **head, char *name, char *value,
 
 	/* Allocate memory to the new node */
 	new_node = malloc(sizeof(dir_t));
-	if (new_node != NULL) /* Malloc check */
+	if (new_node == NULL) /* Malloc check */
 	{
-		/* Copy the strings name and value */
-		new_node->name = strdup(name);
-		new_node->path = strdup(value);
-		/* strdup check */
-		if ((new_node->name != NULL) && (new_node->path != NULL))
-		{
-			/* Set the pointer next to NULL. The node is the last */
-			new_node->next = NULL;
-
-			/* If the list does not exist */
-			if (*head != NULL)
-			{
-				/* We use the search node to access the last node */
-				curr_node = *head;
-				while (curr_node->next != NULL)
-					curr_node = curr_node->next;
-
-				/* The new node takes the place of last */
-				curr_node->next = new_node;
-			}
-			else
-				*head = new_node; /* The new node becomes the head */
-			return (new_node);
-		}
+		free(user_input);
+		free_path_dir(*head);
+		error_handling("malloc", EXIT_FAILURE);
+	}
+	/* Copy the strings name and value */
+	new_node->name = strdup(name);
+	new_node->path = strdup(value);
+	/* strdup check */
+	if ((new_node->name == NULL) || (new_node->path == NULL))
+	{
 		free(user_input);
 		free_path_dir(*head);
 		error_handling("strdup", EXIT_FAILURE);
 	}
-	free(user_input);
-	free_path_dir(*head);
-	error_handling("malloc", EXIT_FAILURE);
+	/* Set the pointer next to NULL. The node is the last */
+	new_node->next = NULL;
+
+	/* If the list does not exist */
+	if (*head != NULL)
+	{
+		/* We use the search node to access the last node */
+		curr_node = *head;
+		while (curr_node->next != NULL)
+			curr_node = curr_node->next;
+
+		/* The new node takes the place of last */
+		curr_node->next = new_node;
+	}
+	else
+		*head = new_node; /* The new node becomes the head */
+	return (new_node);
 }
 
 /**
