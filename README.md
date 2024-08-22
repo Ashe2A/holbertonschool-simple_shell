@@ -34,3 +34,5 @@ You might want to check the environment variables and their content. To do so, s
 
 ## 3. Close simple shell (simple shell ver. 0.4)
 To close the simple shell, simply type the ```exit``` command as-is. It will elways return 0 (SUCCESS).
+
+![image](https://github.com/user-attachments/assets/5cf12a8d-1067-40d3-8a60-8b9632f03303)
