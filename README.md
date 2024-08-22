@@ -42,7 +42,7 @@ flowchart
     prompt --> getline("Read user input<br>(getline())")
     interact -- false --> getline
     getline -- EOF (Ctrl + D) --> EOF(["Exit<br>(exit())"])
-    getline --> tokenize("Tokenize input"<br>(tokenize()))
+    getline --> tokenize("Tokenize input<br>(tokenize())")
     tokenize --> builtin_check{"Built-in?<br>(env, exit)"}
     builtin_check -- false --> full_path_check{"Full path?"}
     builtin_check -- true --> builtin_run("Run built-in")
