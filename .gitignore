@@ -64,5 +64,5 @@ hsh
 #*#
 _putchar.c
 *main.c
-*swo
-*swp
+*.swo
+*.swp
