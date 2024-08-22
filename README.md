@@ -47,7 +47,7 @@ flowchart
     G -- false --> I{"Full path?"}
     G -- true --> H("Run built-in")
     H --> M
-    I -- true --> J("fork()")
+    I -- true --> J("Create child process<br>(fork())")
     J --> L("Execute environment variable<br>(execve())")
     I -- false --> K("Search for PATH")
     K --> J
