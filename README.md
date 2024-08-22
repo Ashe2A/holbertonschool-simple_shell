@@ -48,9 +48,9 @@ flowchart
     builtin_check -- true --> builtin_run("Run built-in")
     builtin_run --> reset_ressources
     full_path_check -- true --> fork("Create child process<br>(fork())")
-    fork --> fork_check{"Child?"<br>if (getpid() == 0)}
+    fork --> fork_check{"Child?<br>if (getpid() == 0)"}
     fork_check -- true --> execve("Execute environment variable<br>(execve())")
-    fork_check -- false --> wait("Wait for children processes' end"<br>wait(&status))
+    fork_check -- false --> wait("Wait for children processes' end<br>wait(&status)")
     full_path_check -- false --> build_path("Search for PATH")
     build_path --> fork
     execve --> reset_ressources("Reset ressources<br>(free())")
