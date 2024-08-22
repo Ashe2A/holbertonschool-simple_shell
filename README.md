@@ -36,6 +36,7 @@ You might want to check the environment variables and their content. To do so, s
 To close the simple shell, simply type the ```exit``` command as-is. It will elways return 0 (SUCCESS).
 
 ```mermaid
+flowchart
     A(["Start<br>(main())"]) --> B{"Interactive?"}
     B -- true --> C("Print prompt<br>(current/path/$ )")
     C --> D("Read user input<br>(getline())")
