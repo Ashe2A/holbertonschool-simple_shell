@@ -37,35 +37,40 @@ To close the simple shell, simply type the ```exit``` command as-is. It will elw
 
 ```mermaid
 flowchart
-    A(["Start<br>(main())"]) --> B{"Interactive?"}
-    B -- true --> C("Print prompt<br>(current/path/$ )")
-    C --> D("Read user input<br>(getline())")
-    B -- false --> D
-    D -- EOF (Ctrl + D) --> E(["Exit<br>(exit())"])
-    D --> F("Tokenize input")
-    F --> G{"Built-in?<br>(env, exit)"}
-    G -- false --> I{"Full path?"}
-    G -- true --> H("Run built-in")
-    H --> M
-    I -- true --> J("Create child process<br>(fork())")
-    J --> L("Execute environment variable<br>(execve())")
-    I -- false --> K("Search for PATH")
-    K --> J
-    L --> M("Reset ressources<br>(free())")
-    M --> B
-    style A stroke:#FC0,fill:#FFD,color:#A80
-    style E stroke:#FC0,fill:#FFD,color:#A80
+    start(["Start<br>(main())"]) --> interact{"Interactive?"}
+    interact -- true --> prompt("Print prompt<br>(current/path/$ )")
+    prompt --> getline("Read user input<br>(getline())")
+    interact -- false --> getline
+    getline -- EOF (Ctrl + D) --> EOF(["Exit<br>(exit())"])
+    getline --> tokenize("Tokenize input"<br>(tokenize()))
+    tokenize --> builtin_check{"Built-in?<br>(env, exit)"}
+    builtin_check -- false --> full_path_check{"Full path?"}
+    builtin_check -- true --> builtin_run("Run built-in")
+    builtin_run --> reset_ressources
+    full_path_check -- true --> fork("Create child process<br>(fork())")
+    fork --> fork_check{"Child?"<br>if (getpid() == 0)}
+    fork_check -- true --> execve("Execute environment variable<br>(execve())")
+    fork_check -- false --> wait("Wait for children processes' end"<br>wait(&status))
+    full_path_check -- false --> build_path("Search for PATH")
+    build_path --> fork
+    execve --> reset_ressources("Reset ressources<br>(free())")
+    reset_ressources --> interact
 
-    style B stroke:#C0F,fill:#ECF,color:#80A
-    style G stroke:#C0F,fill:#ECF,color:#80A
-    style I stroke:#C0F,fill:#ECF,color:#80A
+    style start stroke:#FC0,fill:#FFD,color:#A80
+    style EOF stroke:#FC0,fill:#FFD,color:#A80
 
-    style C stroke:#0CF,fill:#CEF,color:#08A
-    style D stroke:#0CF,fill:#CEF,color:#08A
-    style F stroke:#0CF,fill:#CEF,color:#08A
-    style H stroke:#0CF,fill:#CEF,color:#08A
-    style J stroke:#0CF,fill:#CEF,color:#08A
-    style K stroke:#0CF,fill:#CEF,color:#08A
-    style L stroke:#0CF,fill:#CEF,color:#08A
-    style M stroke:#0CF,fill:#CEF,color:#08A
+    style interact stroke:#C0F,fill:#ECF,color:#80A
+    style builtin_check stroke:#C0F,fill:#ECF,color:#80A
+    style full_path_check stroke:#C0F,fill:#ECF,color:#80A
+    style fork_check stroke:#C0F,fill:#ECF,color:#80A
+
+    style prompt stroke:#0CF,fill:#CEF,color:#08A
+    style getline stroke:#0CF,fill:#CEF,color:#08A
+    style tokenize stroke:#0CF,fill:#CEF,color:#08A
+    style builtin_run stroke:#0CF,fill:#CEF,color:#08A
+    style fork stroke:#0CF,fill:#CEF,color:#08A
+    style build_path stroke:#0CF,fill:#CEF,color:#08A
+    style execve stroke:#0CF,fill:#CEF,color:#08A
+    style reset_ressources stroke:#0CF,fill:#CEF,color:#08A
+    style wait stroke:#0CF,fill:#CEF,color:#08A
 ```
