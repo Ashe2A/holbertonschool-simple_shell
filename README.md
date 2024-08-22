@@ -1,23 +1,29 @@
 # Simple shell
 <small>(See authors in the ```AUTHORS``` file)</small>
 
-## 1. Execution
-To start the simple shell, type ```./simple_shell```
+## 0. Execution
+To start the simple shell, type ```./simple_shell```, or use the interactive mode ```echo "ls -la /root" | ./simple_shell```
 
-## 2. Usage
+## 1. Usage
 The simple shell works akin to a true shell with some differences:
 
+### 1.0 Interactive mode
 1. The shell creates a child process (with ```fork()```);
 
-2. It waits for an input (```stdin```);
+2. It waits for an input (```getline()```). If ```Ctrl + D``` is pressed, the simple shell exits with the ```stderr``` of the child process.
 
-3. One shall enter a command (for example : ```/usr/bin/ls``` or ```usr/bin/ls -la /root```). The command name must indeed be the full path to the corresponding binary;
+3. One shall enter a command (for example : ```ls -la /root``` or ```usr/bin/ls -la /root```). The command name must indeed be the full path to the corresponding binary;
 
-4. The simple shell recognizes the command and executes it using the newly forked process' environment (see the Managing environments tab below);
+4. The simple shell recognizes the command or the built-in (also searches for its path if not specified ```path_parse()```) and executes it using the newly forked process' environment (see the Managing environments tab below);
 
 5. It loops back to the first step (```while (1)```).
 
-It has to be noted that **simple shell 0.1** didn't work with arguments, and **simple shell 0.2** implemented that functionality.
+### 1.1 Non interactive mode
+1. User enters a command output into the simple shell ```echo "ls -la /root" | ./simple_shell```
+
+2. The simple shell recognizes the command or the built-in (also searches for its path if not specified ```path_parse()```) and executes it using the newly forked process' environment (see the Managing environments tab below);
+
+It has to be noted that **simple shell 0.1** didn't work with arguments (didn't even use tokenizing), and **simple shell 0.2** implemented that functionality.
 
 ## 2. Managing environments
 ### 2.1. Environment used <small>(simple shell ver. 0.3)</small>
