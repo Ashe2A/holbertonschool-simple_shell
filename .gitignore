@@ -57,10 +57,12 @@ dkms.conf
 test/
 
 simple_shell
+hsh
 
 *~
 ~*
 #*#
 _putchar.c
+.main.c
 *.swo
 *.swp
